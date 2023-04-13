@@ -1,0 +1,1635 @@
+{
+	"info": {
+		"_postman_id": "c5d3a926-846c-4247-9367-35365f0dd5d9",
+		"name": "Restaurant Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26011398"
+	},
+	"item": [
+		{
+			"name": "Register Owner, Manager, Worker",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"manager1\",\n    \"email\":\"manager1@gmail.com\",\n    \"password\":\"manager1pw\",\n    \"role\":6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Owner, Manager, Worker Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"identifier\":\"manager1\",\n    \"password\":\"manager1pw\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/auth/local",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"auth",
+						"local"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Owner, Manager, Worker",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/users?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Owner, Manager, Worker by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/users/11?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"users",
+						"11"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Owner, Manager, Worker",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/users/11?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"users",
+						"11"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Owner, Manager, Worker",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/users/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"users",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"username\":\"customer3\",\n    \"phone\":8989562341,\n    \"email\":\"customer3@zignuts.com\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/customers?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/customers/8?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"customers",
+						"8"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update customer",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\":{\n        \"username\":\"xyz\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/customers/8?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"customers",
+						"8"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete customer",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/customers/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"customers",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTY4MTM5MTY5MCwiZXhwIjoxNjgzOTgzNjkwfQ.6mAML1pytosoXo1kt3rqEv03mp1PxJyGH19oTBxsDV8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"name\":\"restaurant2\",\n    \"address\":\"restaurant2 @ highway2\",\n    \"rating\":5,\n    \"timing\":\"6 pm to 11 pm\",\n    \"status\":\"Closed\",\n    \"serviceType\":\"Dine-In, Take-away, Delivery\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/restaurants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"restaurants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/restaurants?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"restaurants"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get restaurant by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/restaurants/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"restaurants",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\":{\n        \n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/restaurants/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"restaurants",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{admin_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/restaurants/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"restaurants",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTY4MTM5MTY5MCwiZXhwIjoxNjgzOTgzNjkwfQ.6mAML1pytosoXo1kt3rqEv03mp1PxJyGH19oTBxsDV8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"name\":\"category4\",\n    \"restaurant\":3\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/categories?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get category by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/categories/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"categories",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\":{\n        \n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/categories/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"categories",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/categories/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"categories",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create menu-item",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"name\":\"item2\",\n    \"category\":5,\n    \"price\":499\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/menu-items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"menu-items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get menu-item",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/menu-items?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"menu-items"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get menu-item by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/menu-items/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"menu-items",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update menu-item",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\":{\n        \n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/menu-items/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"menu-items",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete menu-item",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{manager_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/menu-items/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"menu-items",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"restaurant\":3,\n    \"customer\":[9]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/orders?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/orders/41?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"orders",
+						"41"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{worker_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\":{\n        \n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/orders/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"orders",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"data\": {\n    \"quantity\":4,\n    \"order\":41,\n    \"menuItem\":3\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/order-details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"order-details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/order-details?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"order-details"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get order detail by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/order-details/19?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"order-details",
+						"19"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update order detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{worker_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\":{\n        \n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/order-details/:id?populate=*",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"order-details",
+						":id"
+					],
+					"query": [
+						{
+							"key": "populate",
+							"value": "*"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order detail",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1337/api/order-details/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"order-details",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "manager_jwt",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTY4MTM5MTY5MCwiZXhwIjoxNjgzOTgzNjkwfQ.6mAML1pytosoXo1kt3rqEv03mp1PxJyGH19oTBxsDV8",
+			"type": "string"
+		},
+		{
+			"key": "admin_jwt",
+			"value": "682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+			"type": "string"
+		},
+		{
+			"key": "customer_jwt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "worker_jwt",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
