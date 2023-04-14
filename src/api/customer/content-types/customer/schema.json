@@ -17,7 +17,7 @@
       "required": true
     },
     "otp": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "phone": {
       "type": "biginteger",

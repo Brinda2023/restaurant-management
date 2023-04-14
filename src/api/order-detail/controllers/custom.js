@@ -59,5 +59,18 @@ module.exports = createCoreController(
       });
       return entry;
     },
+
+    async getOrderDetails(ctx) {
+      
+      return ctx;
+    },
+    async getOneOrderDetails(ctx) {
+      
+      return ctx;
+    },
+    async deleteOrderDetails(ctx) {
+      
+      return ctx;
+    },
   })
 );

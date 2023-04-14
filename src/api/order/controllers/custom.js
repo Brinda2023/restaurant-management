@@ -3,6 +3,8 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   // Create new order
   async createOrder(ctx) {
+    // console.log("---------->",ctx.state.user)
+
     console.log(ctx.request.body.data);
     // Get request body parameters
     const { restaurant, customer } = ctx.request.body.data;
@@ -58,5 +60,11 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     });
 
     return entry;
+  },
+  async getOrder(ctx) {
+    return ctx;
+  },
+  async getOneOrder(ctx) {
+    return ctx;
   },
 }));
