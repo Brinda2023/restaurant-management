@@ -16,13 +16,5 @@ module.exports = {
         policies: ["global::isCustomer"],
       },
     },
-    {
-      method: "GET",
-      path: "/orders/:id",
-      handler: "custom.getOneOrder",
-      config: {
-        policies: ["global::isCustomer"],
-      },
-    },
   ],
 };

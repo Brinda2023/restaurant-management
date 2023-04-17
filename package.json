@@ -14,8 +14,8 @@
     "@strapi/plugin-users-permissions": "4.9.0",
     "@strapi/provider-email-nodemailer": "^4.9.0",
     "@strapi/strapi": "4.9.0",
+    "jsonwebtoken": "^9.0.0",
     "mysql": "2.18.1",
-    "otp-generator": "^4.0.1",
     "twilio": "^4.10.0"
   },
   "author": {

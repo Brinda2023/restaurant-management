@@ -60,17 +60,43 @@ module.exports = createCoreController(
       return entry;
     },
 
-    async getOrderDetails(ctx) {
-      
-      return ctx;
-    },
-    async getOneOrderDetails(ctx) {
-      
-      return ctx;
-    },
     async deleteOrderDetails(ctx) {
-      
-      return ctx;
+      // Get request body data
+      const id = ctx.request.params.id;
+      console.log(id);
+      // Check if order detail exists or not
+      const existedOrderDetail = await strapi.db
+        .query("api::order-detail.order-detail")
+        .findOne({ where: { id: id }, populate: true });
+      if (!existedOrderDetail) {
+        return (ctx.status = 400), (ctx.body = "Order Detail not found");
+      }
+      console.log(existedOrderDetail);
+      await strapi.db.query("api::order.order").update({
+        where: { id: existedOrderDetail.order.id },
+        data: {
+          totalQuantity:
+            existedOrderDetail.order.totalQuantity -
+            existedOrderDetail.quantity,
+          totalAmount:
+            existedOrderDetail.order.totalAmount -
+            existedOrderDetail.menuItem.price,
+        },
+      });
+      // Delete order-detail
+      const deletedOrderDetail = await strapi.db
+        .query("api::order-detail.order-detail")
+        .delete({
+          where: { id: existedOrderDetail.id },
+        })
+        .then((res) => {
+          return ctx.send(res);
+        })
+        .catch((error) => {
+          console.log(error);
+          return (ctx.status = 400);
+        });
+      return deletedOrderDetail;
     },
   })
 );

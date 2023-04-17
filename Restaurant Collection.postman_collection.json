@@ -33,7 +33,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\":\"Worker5\",\n    \"email\":\"Worker5@gmail.com\",\n    \"password\":\"Worker5pw\",\n    \"role\":8\n}",
+							"raw": "{\n    \"username\":\"Worker5\",\n    \"email\":\"Worker5@gmail.com\",\n    \"password\":\"Worker5pw\",\n    \"role\":8,\n    \"restaurant\":4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -231,44 +231,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Delete Owner, Manager, Worker",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{admin_jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:1337/api/users/17",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1337",
-							"path": [
-								"api",
-								"users",
-								"17"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -279,16 +241,10 @@
 					"name": "Create customer",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"username\":\"brinda\",\n    \"phone\":6354434483,\n    \"email\":\"dabhibrinda95@zignuts.com\"\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"username\":\"customer5\",\n    \"phone\":6354434483,\n    \"email\":\"customer1@zignuts.com\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -313,15 +269,18 @@
 				{
 					"name": "Login customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"data\": {\n    \"phone\":6354434483,\n    \"email\":\"dabhibrinda95@zignuts.com\"\n  }\n}",
@@ -361,7 +320,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"email\":\"dabhibrinda95@zignuts.com\",\n    \"otp\":279255\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"email\":\"dabhibrinda95@zignuts.com\",\n    \"otp\":468334\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -387,23 +346,12 @@
 				{
 					"name": "Logout customer",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -425,6 +373,16 @@
 				{
 					"name": "Get customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -457,16 +415,20 @@
 				{
 					"name": "Get customer by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "http://localhost:1337/api/customers/8?populate=*",
+							"raw": "http://localhost:1337/api/customers/12?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -475,7 +437,7 @@
 							"path": [
 								"api",
 								"customers",
-								"8"
+								"12"
 							],
 							"query": [
 								{
@@ -490,6 +452,16 @@
 				{
 					"name": "Update customer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_jwt}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -500,7 +472,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"data\":{\n    }\n}",
+							"raw": "{\n    \"data\":{\n        \"username\":\"customer1\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -508,7 +480,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1337/api/customers/11?populate=*",
+							"raw": "http://localhost:1337/api/customers/13?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -517,40 +489,13 @@
 							"path": [
 								"api",
 								"customers",
-								"11"
+								"13"
 							],
 							"query": [
 								{
 									"key": "populate",
 									"value": "*"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete customer",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:1337/api/customers/8",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1337",
-							"path": [
-								"api",
-								"customers",
-								"8"
 							]
 						}
 					},
@@ -585,7 +530,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"name\":\"Restaurant1\",\n    \"address\":\"Restaurant1 @ highway1\",\n    \"rating\":5,\n    \"timing\":\"6 pm to 11 pm\",\n    \"status\":\"Closed\",\n    \"serviceType\":\"Dine-In, Take-away, Delivery\"\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"name\":\"Restaurant5\",\n    \"address\":\"Restaurant5 @ highway5\",\n    \"rating\":5,\n    \"timing\":\"6 pm to 11 pm\",\n    \"status\":\"Closed\",\n    \"serviceType\":\"Dine-In, Take-away, Delivery\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -822,14 +767,7 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTY4MTM5MTY5MCwiZXhwIjoxNjgzOTgzNjkwfQ.6mAML1pytosoXo1kt3rqEv03mp1PxJyGH19oTBxsDV8",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"data\": {\n    \"name\":\"Category11\",\n    \"restaurant\":4\n  }\n}",
@@ -1069,14 +1007,7 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"data\": {\n    \"name\":\"Item11\",\n    \"category\":9,\n    \"price\":499\n  }\n}",
@@ -1304,23 +1235,12 @@
 				{
 					"name": "Create order",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1350,23 +1270,12 @@
 				{
 					"name": "Get order",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1391,74 +1300,13 @@
 					"response": []
 				},
 				{
-					"name": "Get order by id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:1337/api/orders/41?populate=*",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1337",
-							"path": [
-								"api",
-								"orders",
-								"41"
-							],
-							"query": [
-								{
-									"key": "populate",
-									"value": "*"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Update order",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{worker_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"data\":{\n        \n    }\n}",
+							"raw": "{\n    \"data\":{\n        \"status\":\"Placed\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1466,7 +1314,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1337/api/orders/:id?populate=*",
+							"raw": "http://localhost:1337/api/orders/58?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1475,18 +1323,12 @@
 							"path": [
 								"api",
 								"orders",
-								":id"
+								"58"
 							],
 							"query": [
 								{
 									"key": "populate",
 									"value": "*"
-								}
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": null
 								}
 							]
 						}
@@ -1501,28 +1343,17 @@
 				{
 					"name": "Create order detail",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"quantity\":4,\n    \"order\":41,\n    \"menuItem\":3\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"quantity\":4,\n    \"order\":56,\n    \"menuItem\":4\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1552,20 +1383,13 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{customer_jwt}}",
+									"value": "{{admin_jwt}}",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:1337/api/order-details?populate=*",
 							"protocol": "http",
@@ -1576,50 +1400,6 @@
 							"path": [
 								"api",
 								"order-details"
-							],
-							"query": [
-								{
-									"key": "populate",
-									"value": "*"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get order detail by id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:1337/api/order-details/19?populate=*",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "1337",
-							"path": [
-								"api",
-								"order-details",
-								"19"
 							],
 							"query": [
 								{
@@ -1655,7 +1435,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"data\":{\n        \n    }\n}",
+							"raw": "{\n    \"data\":{\n        \"served\":\"\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1693,27 +1473,16 @@
 				{
 					"name": "Delete order detail",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{customer_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
+								"key": "Token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:1337/api/order-details/:id",
+							"raw": "http://localhost:1337/api/order-details/23",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1722,13 +1491,7 @@
 							"path": [
 								"api",
 								"order-details",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": null
-								}
+								"23"
 							]
 						}
 					},
@@ -1765,12 +1528,12 @@
 		},
 		{
 			"key": "admin_jwt",
-			"value": "682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
+			"value": "6ae268425d1aba25d0c985f03e123383f0adf3b86054d16286862ccec58c9591502d0534ef156d5939a6f02a83be1150137080e2fc128b6f55772600ddaf9831ecd5a4f3cb644d04c8123a20884e077cb5fb00138ac73d3d0fd17933565178418f58cb99b169e42958b43edd096095feb8c0aa74d5f81ee451098c27abca8b4c",
 			"type": "string"
 		},
 		{
 			"key": "customer_jwt",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE0Nzg5NDUsImV4cCI6MTY4NDA3MDk0NX0.9_ORFoAaW3V54FJpSZAh4kAKfpJqk82tMB8NyXczzws",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MzY1ODIsImV4cCI6MTY4NDMyODU4Mn0.r-rP9h1M37IUUgusUEb30rTGbO1sppNQje0SK8ouptU",
 			"type": "string"
 		},
 		{
@@ -1780,7 +1543,7 @@
 		},
 		{
 			"key": "owner_jwt",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY4MTQ3ODg0MywiZXhwIjoxNjg0MDcwODQzfQ.IReg6uTQbBkbtTuryj9Zccd_sTtu8PzMm2Hc07fTu0U",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY4MTczNzUyMSwiZXhwIjoxNjg0MzI5NTIxfQ.UOTnew_oRxbgqci0SioHS5IQA209SR5ZSuJNcM2D-7A",
 			"type": "string"
 		}
 	]

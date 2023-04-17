@@ -59,6 +59,12 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "restaurant"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "restaurant"
     }
   }
 }

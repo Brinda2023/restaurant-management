@@ -6,9 +6,14 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     // console.log("---------->",ctx.state.user)
 
     console.log(ctx.request.body.data);
+    console.log(ctx.req.decodedToken);
+    console.log(ctx.req.me);
     // Get request body parameters
     const { restaurant, customer } = ctx.request.body.data;
-
+    // Check if customer is login or not
+    if (customer[0] !== ctx.req.me.id) {
+      return (ctx.status = 400), (ctx.body = "Customer is not login");
+    }
     // Check if restaurant exists or not
     const existedResturant = await strapi.db
       .query("api::restaurant.restaurant")
@@ -19,17 +24,9 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     if (!existedResturant) {
       return (ctx.status = 400), (ctx.body = "Restaurant not found");
     }
-    // Check if customer exists or not
-    const existedCustomer = await strapi.db
-      .query("api::customer.customer")
-      .findOne({
-        where: { id: customer },
-        populate: true,
-      });
-    if (!existedCustomer) {
-      return (ctx.status = 400), (ctx.body = "Customer not not found");
+    if (existedResturant.status==="Closed") {
+      return (ctx.status = 400), (ctx.body = "Restaurant is Closed");
     }
-
     // Create new order
     const entry = await strapi.db
       .query("api::order.order")
@@ -62,9 +59,10 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     return entry;
   },
   async getOrder(ctx) {
-    return ctx;
-  },
-  async getOneOrder(ctx) {
-    return ctx;
+    const customer = await strapi.db
+      .query("api::customer.customer")
+      .findOne({ id: ctx.req.me.id , populate: true });
+    console.log(customer.orders);
+    return { customer: { name: customer.username }, order: customer.orders };
   },
 }));

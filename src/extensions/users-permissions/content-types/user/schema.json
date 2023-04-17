@@ -49,18 +49,26 @@
       "private": true,
       "searchable": false
     },
-    "confirmed": {
-      "type": "boolean",
-      "default": false    },
-    "blocked": {
-      "type": "boolean",
-      "default": false    },
     "role": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "users"
     }
   }
 }
