@@ -4,7 +4,6 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   // Create new order
   async createOrder(ctx) {
     // console.log("---------->",ctx.state.user)
-
     console.log(ctx.request.body.data);
     console.log(ctx.req.decodedToken);
     console.log(ctx.req.me);
@@ -46,7 +45,6 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         console.log(error);
         return (ctx.status = 400);
       });
-
     // After creating order give relation between customer & restaurant
     const customers = existedResturant.customers.map((customer) => {
       return customer.id;
@@ -55,9 +53,10 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       where: { id: restaurant },
       data: { customers: [...customers, ...customer] },
     });
-
     return entry;
   },
+
+  // Get all the orders of current user
   async getOrder(ctx) {
     const customer = await strapi.db
       .query("api::customer.customer")

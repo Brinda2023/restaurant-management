@@ -8,7 +8,6 @@ module.exports = createCoreController(
       console.log(ctx.request.body.data);
       // Get request body data
       const { quantity, order, menuItem } = ctx.request.body.data;
-
       // Check if menu item exists or not
       const existedMenuItem = await strapi.entityService.findOne(
         "api::menu-item.menu-item",
@@ -60,6 +59,7 @@ module.exports = createCoreController(
       return entry;
     },
 
+    // Delete an order detail from order
     async deleteOrderDetails(ctx) {
       // Get request body data
       const id = ctx.request.params.id;

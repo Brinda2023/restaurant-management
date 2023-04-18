@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = async (ctx, next) => {
+  // Get token from headers
   console.log(ctx.request.headers.token);
-  const  token  = ctx.request.headers.token;
+  const token = ctx.request.headers.token;
   if (!token) {
     return (ctx.status = 403), (ctx.body = "Customer token not found");
   }
