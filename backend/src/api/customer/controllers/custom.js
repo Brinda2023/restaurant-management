@@ -1,6 +1,6 @@
 const { createCoreController } = require("@strapi/strapi").factories;
 const accountSid = "ACeb1e6baea4ec1455ece920426e33ad3e"; // Your Account SID from www.twilio.com/console
-const authToken = "1c203350cdbd93d2f0db7fa9c629240b"; // Your Auth Token from www.twilio.com/console
+const authToken = "e2f53619859bfeeff0c8993e44959f74"; // Your Auth Token from www.twilio.com/console
 const client = require("twilio")(accountSid, authToken);
 
 module.exports = createCoreController(
@@ -97,11 +97,10 @@ module.exports = createCoreController(
         .update({
           where: { id: ctx.req.me.id },
           data: {
-            token: "",
-            otp: "",
+            token: null,
+            otp: null,
           },
-        })
-        .fetch();
+        });
       return customer;
     },
 

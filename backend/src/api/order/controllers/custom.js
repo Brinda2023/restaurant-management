@@ -1,7 +1,6 @@
 const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::order.order", ({ strapi }) => ({
-
   // Create Order at frontend side
   async customCreate(ctx) {
     try {
@@ -40,8 +39,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       const updateOrder = await strapi.db.query("api::order.order").update({
         where: { id: orderId },
         data: {
-           totalQuantity,
-           totalAmount,
+          totalQuantity,
+          totalAmount,
         },
       });
       return updateOrder;

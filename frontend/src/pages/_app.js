@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
+// import NavBar from "../../components/NavBar";
+// import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -52,18 +52,21 @@ export default function App({ Component, pageProps }) {
   const clearCart = () => {
     setCart([]);
   };
+  const Layout = Component.layout || (({ children }) => <>{children}</>);
   return (
     <>
       <ChakraProvider>
-        <NavBar key={reloadKey} cart={cart} />
+        {/* <NavBar key={reloadKey} cart={cart} /> */}
+        <Layout>
         <Component
           cart={cart}
           removeFromCart={removeFromCart}
           addToCart={addToCart}
           clearCart={clearCart}
+          key={reloadKey}
           {...pageProps}
-        />
-        <Footer />
+        /></Layout>
+        {/* <Footer /> */}
       </ChakraProvider>
     </>
   );

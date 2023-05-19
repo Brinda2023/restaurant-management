@@ -23,17 +23,10 @@
 							]
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\":\"Worker5\",\n    \"email\":\"Worker5@gmail.com\",\n    \"password\":\"Worker5pw\",\n    \"role\":8,\n    \"restaurant\":4\n}",
+							"raw": "{\n    \"username\":\"Owner11\",\n    \"email\":\"Owner11@gmail.com\",\n    \"password\":\"Owner11pw\",\n    \"role\":7,\n    \"restaurant\":11,\n    \"confirmed\":true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -59,17 +52,10 @@
 					"name": "Login Owner, Manager, Worker Copy",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"identifier\":\"Owner1\",\n    \"password\":\"Owner1pw\"\n}",
+							"raw": "{\n    \"identifier\":\"Owner4@gmail.com\",\n    \"password\":\"Owner4pw\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -139,14 +125,7 @@
 					"name": "Get Owner, Manager, Worker by id",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{admin_jwt}}",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [
@@ -158,7 +137,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:1337/api/users/11?populate=*",
+							"raw": "http://localhost:1337/api/users?populate=*&filters[email]=Owner4@gmail.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -166,13 +145,16 @@
 							"port": "1337",
 							"path": [
 								"api",
-								"users",
-								"11"
+								"users"
 							],
 							"query": [
 								{
 									"key": "populate",
 									"value": "*"
+								},
+								{
+									"key": "filters[email]",
+									"value": "Owner4@gmail.com"
 								}
 							]
 						}
@@ -231,6 +213,61 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "dabhibrinda@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:1337/api/auth/send-email-confirmation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1337",
+							"path": [
+								"api",
+								"auth",
+								"send-email-confirmation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1337/api/auth/email-confirmation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1337",
+							"path": [
+								"api",
+								"auth",
+								"email-confirmation"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -283,7 +320,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"phone\":6354434483,\n    \"email\":\"dabhibrinda95@zignuts.com\"\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"phone\":6354434483,\n    \"email\":\"dabhibrinda@gmail.com\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -307,7 +344,7 @@
 					"response": []
 				},
 				{
-					"name": "Verift OTP",
+					"name": "Verify OTP",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -320,7 +357,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"email\":\"dabhibrinda95@zignuts.com\",\n    \"otp\":468334\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"email\":\"dabhibrinda@gmail.com\",\n    \"otp\":534547\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -350,7 +387,7 @@
 						"header": [
 							{
 								"key": "Token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhQGdtYWlsLmNvbSIsImlhdCI6MTY4NDE0MzQwMSwiZXhwIjoxNjg2NzM1NDAxfQ.akylpUk2ErJCBUJBJ3rEaw8M-9H3R8mlktpSiAqf4g0",
 								"type": "text"
 							}
 						],
@@ -428,7 +465,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:1337/api/customers/12?populate=*",
+							"raw": "http://localhost:1337/api/customers/15?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -437,7 +474,7 @@
 							"path": [
 								"api",
 								"customers",
-								"12"
+								"15"
 							],
 							"query": [
 								{
@@ -514,7 +551,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{admin_jwt}}",
+									"value": "{{owner_jwt}}",
 									"type": "string"
 								}
 							]
@@ -566,14 +603,7 @@
 							]
 						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:1337/api/restaurants?populate=*",
 							"protocol": "http",
@@ -603,22 +633,15 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{admin_jwt}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTY4NDMxNDQ1NiwiZXhwIjoxNjg2OTA2NDU2fQ.ew_ck6G9GL2bgB2DF_Tn1eY1DFCACoL7uWmuRkiBpIA",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "http://localhost:1337/api/restaurants/:id?populate=*",
+							"raw": "http://localhost:1337/api/restaurants/4?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -627,18 +650,12 @@
 							"path": [
 								"api",
 								"restaurants",
-								":id"
+								"4"
 							],
 							"query": [
 								{
 									"key": "populate",
 									"value": "*"
-								}
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": null
 								}
 							]
 						}
@@ -761,7 +778,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{owner_jwt}}",
+									"value": "{{admin_jwt}}",
 									"type": "string"
 								}
 							]
@@ -770,7 +787,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"name\":\"Category11\",\n    \"restaurant\":4\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"name\":\"Category1111\",\n    \"restaurant\":11\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -795,27 +812,10 @@
 				{
 					"name": "Get category",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{manager_jwt}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "http://localhost:1337/api/categories?populate=*",
+							"raw": "http://localhost:1337/api/categories?filters[restaurant]=11&populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -826,6 +826,10 @@
 								"categories"
 							],
 							"query": [
+								{
+									"key": "filters[restaurant]",
+									"value": "11"
+								},
 								{
 									"key": "populate",
 									"value": "*"
@@ -1001,7 +1005,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{owner_jwt}}",
+									"value": "{{manager_jwt}}",
 									"type": "string"
 								}
 							]
@@ -1010,7 +1014,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"data\": {\n    \"name\":\"Item11\",\n    \"category\":9,\n    \"price\":499\n  }\n}",
+							"raw": "{\n  \"data\": {\n    \"name\":\"Item211\",\n    \"categoryId\":20,\n    \"price\":9000\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1018,7 +1022,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:1337/api/menu-items",
+							"raw": "http://localhost:1337/api/menu-items?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1027,6 +1031,12 @@
 							"path": [
 								"api",
 								"menu-items"
+							],
+							"query": [
+								{
+									"key": "populate",
+									"value": "*"
+								}
 							]
 						}
 					},
@@ -1082,20 +1092,13 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{manager_jwt}}",
+									"value": "{{admin_jwt}}",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 682ae61e1cb5a7a7c1b9f5be75bbc102a191e481a8fda2356f6757676a27c21aac11261a3f4c9a322261af9865a51db7e9301894b022f94988467b1ec993de3513bf273d3a4440a66eeaab2ef028de2fe807e7626cd37d17257214696ea219b5ae068231d584870e90ecc18c7af250c705d625f8d0ac3895e72a087a98de222b",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:1337/api/menu-items/:id?populate=*",
 							"protocol": "http",
@@ -1117,7 +1120,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": null
+									"value": "53"
 								}
 							]
 						}
@@ -1274,12 +1277,12 @@
 						"header": [
 							{
 								"key": "Token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhOTVAemlnbnV0cy5jb20iLCJpYXQiOjE2ODE3MTUwNDIsImV4cCI6MTY4NDMwNzA0Mn0.5ZKro3dXZcq2nBKs5dggfKLB9sGoN257PjZj_U-Dxfg",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhYmhpYnJpbmRhQGdtYWlsLmNvbSIsImlhdCI6MTY4MjY4MjE2MSwiZXhwIjoxNjg1Mjc0MTYxfQ.UoK6QKP5R8ev7GNTEfZG_I9AooKJxDvr4_fHnHU-4Ag",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:1337/api/orders?populate=*",
+							"raw": "http://localhost:1337/api/orders/68?populate=*",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1287,7 +1290,8 @@
 							"port": "1337",
 							"path": [
 								"api",
-								"orders"
+								"orders",
+								"68"
 							],
 							"query": [
 								{
@@ -1523,12 +1527,12 @@
 	"variable": [
 		{
 			"key": "manager_jwt",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTY4MTM5MTY5MCwiZXhwIjoxNjgzOTgzNjkwfQ.6mAML1pytosoXo1kt3rqEv03mp1PxJyGH19oTBxsDV8",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTY4MzkwMDM5NiwiZXhwIjoxNjg2NDkyMzk2fQ.fMs7txLKfGvRFqPy6kV9YvKWRI9ZJxwBDI8FBIJbiHg",
 			"type": "string"
 		},
 		{
 			"key": "admin_jwt",
-			"value": "6ae268425d1aba25d0c985f03e123383f0adf3b86054d16286862ccec58c9591502d0534ef156d5939a6f02a83be1150137080e2fc128b6f55772600ddaf9831ecd5a4f3cb644d04c8123a20884e077cb5fb00138ac73d3d0fd17933565178418f58cb99b169e42958b43edd096095feb8c0aa74d5f81ee451098c27abca8b4c",
+			"value": "d6e1c76d2b7e7564f577a72afcd37ffbafee5bd87aa3aa9a6f78872f17e0d894eda8b1e9e78c9dba453c86a700c06e2d0beb9e546b70f5ec846a52e0800fd2505b658806fe5ad57d23fc7d7dfbe0ef382ee0d0151895daac57be0273ed0638da4bccd375679d592eb3c44b53b12328b59343f21673464fa7549b4c5f21812e45",
 			"type": "string"
 		},
 		{
@@ -1543,7 +1547,7 @@
 		},
 		{
 			"key": "owner_jwt",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY4MTczNzUyMSwiZXhwIjoxNjg0MzI5NTIxfQ.UOTnew_oRxbgqci0SioHS5IQA209SR5ZSuJNcM2D-7A",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY4Mzg5OTgyMiwiZXhwIjoxNjg2NDkxODIyfQ.jjI5pjyMAKITu5plCHlADEG1gPpubRvfivdvoVBD0cU",
 			"type": "string"
 		}
 	]

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Script from "next/script";
 import axios from "axios";
 import { useRouter } from "next/router";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 const Checkout = ({ cart, clearCart }) => {
   const router = useRouter();
@@ -55,48 +56,53 @@ const Checkout = ({ cart, clearCart }) => {
   };
 
   return (
-    <div>
-      <section className="text-black body-font relative">
-        <div className="container px-5 py-24 mx-auto min-h-screen">
-          <div className="flex flex-col w-full mb-12">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-black">
-              Checkout
-            </h1>
-            <h2 className="text-2xl font-medium">Cart</h2>
-            <div className="cart my-2">
-              {cart.length
-                ? `Your cart details are as follows`
-                : `Your cart is Empty!`}
+    <>
+      <NavBar />
+      <div>
+        <section className="text-black body-font relative">
+          <div className="container px-5 py-24 mx-auto min-h-screen">
+            <div className="flex flex-col w-full mb-12">
+              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-black">
+                Checkout
+              </h1>
+              <h2 className="text-2xl font-medium">Cart</h2>
+              <div className="cart my-2">
+                {cart.length
+                  ? `Your cart details are as follows`
+                  : `Your cart is Empty!`}
+              </div>
+              <ul className="list-decimal px-8">
+                {cart.map((item) => {
+                  return (
+                    // eslint-disable-next-line react/jsx-key
+                    <li>
+                      Product {item.item} with a price of ₹{item.price} |
+                      Quantity : {item.quantity} | Menu-Item :{" "}
+                      {item["menu-item"]}
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="font-bold my-10">Subtotal:{subtotal}</div>
             </div>
-            <ul className="list-decimal px-8">
-              {cart.map((item) => {
-                return (
-                  // eslint-disable-next-line react/jsx-key
-                  <li>
-                    Product {item.item} with a price of ₹{item.price} | Quantity
-                    : {item.quantity} | Menu-Item : {item["menu-item"]}
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="font-bold my-10">Subtotal:{subtotal}</div>
-          </div>
-          <div className="">
-            <div className="flex flex-wrap -m-2">
-              <div className="p-2 w-full">
-                <button
-                  onClick={placeOrder}
-                  className="flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                  disabled={cart.length?false:true}
-                >
-                  Place Order
-                </button>
+            <div className="">
+              <div className="flex flex-wrap -m-2">
+                <div className="p-2 w-full">
+                  <button
+                    onClick={placeOrder}
+                    className="flex text-white bg-slate-800 border-0 py-2 px-8 focus:outline-none hover:bg-slate-600 rounded text-lg"
+                    disabled={cart.length ? false : true}
+                  >
+                    Place Order
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+      <Footer />
+    </>
   );
 };
 

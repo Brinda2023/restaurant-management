@@ -22,7 +22,7 @@
     },
     "rating": {
       "max": 7,
-      "required": true,
+      "required": false,
       "type": "integer",
       "min": 1
     },
@@ -36,7 +36,8 @@
         "Open",
         "Closed"
       ],
-      "required": true
+      "required": false,
+      "default": "Closed"
     },
     "serviceType": {
       "type": "string",
