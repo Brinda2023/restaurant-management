@@ -24,7 +24,15 @@ export default function Login() {
       .then((response) => {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.jwt);
-          router.push("/owner/restaurant");
+          const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+          console.log("+===============");
+          console.log(userInfo);
+          if (userInfo.identifier === "brindad@zignuts.com") {
+            router.push("/owner");
+          } else {
+            console.log("-0===============");
+            router.push("/owner/restaurant");
+          }
         }
       })
       .catch((error) => {

@@ -37,7 +37,12 @@ const Index = () => {
     setRestData(data.data);
   };
   useEffect(() => {
-    fetchUser();
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo.identifier !== "brindad@zignuts.com") {
+      fetchUser();
+    } else {
+      setRestaurantId(localStorage.getItem("resId"));
+    }
     if (restaurantId) {
       fetchData();
     }
@@ -70,9 +75,9 @@ const Index = () => {
                         <h2 className="text-lg text-slate-800 font-medium title-font mb-4">
                           {category.attributes.name}
                         </h2>
-                        <Link href={`/menu-item/${category.id}`}>
+                        <Link href={`restaurant/category/${category.id}`}>
                           <button className="my-2 text-white bg-slate-500 border-0 py-1 md:py-2 px-2 md:px-4 focus:outline-none hover:bg-slate-600 rounded text-sm">
-                            Menu Items - {`>`}
+                            Go to {category.attributes.name} - {`>`}
                           </button>
                         </Link>
                       </div>

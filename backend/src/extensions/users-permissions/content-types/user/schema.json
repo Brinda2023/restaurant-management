@@ -58,7 +58,7 @@
     },
     "confirmed": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "blocked": {
       "type": "boolean",
