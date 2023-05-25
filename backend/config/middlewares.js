@@ -3,11 +3,11 @@ module.exports = [
   "strapi::security",
   // "strapi::cors",
   {
-    name: 'strapi::cors',
+    name: "strapi::cors",
     config: {
-      headers: '*',
-      origin: ['http://localhost:1337','http://localhost:3000']
-    }
+      headers: "*",
+      origin: ["http://localhost:1337", "http://localhost:3000"],
+    },
   },
   "strapi::poweredBy",
   "strapi::logger",

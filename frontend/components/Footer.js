@@ -22,9 +22,8 @@ const Footer = () => {
       fetchData();
     }
   }, [restaurantId]);
-  console.log(restData);
   return (
-    <div>
+    <div className="sticky bottom-0">
       <footer className="text-[#ffffff] body-font bg-[#1e293b]">
         <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
           <a className="flex title-font font-medium items-center md:justify-start justify-center text-white">

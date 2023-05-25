@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import Image from "next/image";
+import child from "../../src/assets/child.jpeg";
 
 const Profile = () => {
   const [token, setToken] = useState("");
@@ -105,14 +105,9 @@ const Profile = () => {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative -m-1/2">
-                      {/* <img
-                        alt="..."
-                        src="../assets/team-2-800x800.jpg"
-                        className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-                      /> */}
                       <img
                         className="h-auto w-auto rounded-full max-w-150-px  align-middle border-none shadow-xl -mt-[50%]"
-                        src="child.jpeg"
+                        src={child.src}
                         alt=""
                       />
                     </div>
@@ -152,7 +147,9 @@ const Profile = () => {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-[#1e293b] mb-2">
-                    {custData?custData && custData.data[0].attributes.username:userData &&userData.username}
+                    {custData
+                      ? custData && custData.data[0].attributes.username
+                      : userData && userData.username}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-[#9caabc] font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-[#9caabc]"></i>{" "}
@@ -160,18 +157,24 @@ const Profile = () => {
                   </div>
                   <div className="mb-2 text-[#475569] mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-[#9caabc]"></i>
-                    {custData?custData && custData.data[0].attributes.email: userData&&userData.email}
+                    {custData
+                      ? custData && custData.data[0].attributes.email
+                      : userData && userData.email}
                   </div>
                   <div className="mb-2 text-[#475569]">
                     <i className="fas fa-university mr-2 text-lg text-[#9caabc]"></i>
-                    {custData?custData && custData.data[0].attributes.phone:"NO PHONE"}
+                    {custData
+                      ? custData && custData.data[0].attributes.phone
+                      : "NO PHONE"}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-[#e2e8f0] text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-[#1e293b]">
-                        {custData?custData && custData.data[0].attributes.token:token}
+                        {custData
+                          ? custData && custData.data[0].attributes.token
+                          : token}
                       </p>
                       <a
                         href="#pablo"

@@ -38,6 +38,7 @@ const Checkout = ({ cart, clearCart }) => {
           data: {
             restaurant,
             items: cartData,
+            tableNumber:0
           },
         },
       };
@@ -85,6 +86,7 @@ const Checkout = ({ cart, clearCart }) => {
               </ul>
               <div className="font-bold my-10">Subtotal:{subtotal}</div>
             </div>
+
             <div className="">
               <div className="flex flex-wrap -m-2">
                 <div className="p-2 w-full">

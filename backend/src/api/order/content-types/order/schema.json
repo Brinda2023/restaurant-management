@@ -45,6 +45,11 @@
       "relation": "manyToOne",
       "target": "api::customer.customer",
       "inversedBy": "orders"
+    },
+    "tableNumber": {
+      "type": "integer",
+      "required": true,
+      "unique": false
     }
   }
 }

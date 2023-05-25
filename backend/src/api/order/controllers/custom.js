@@ -5,11 +5,12 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
   async customCreate(ctx) {
     try {
       const userId = ctx.req.me.id;
-      const { restaurant, items } = ctx.request.body.data;
+      const { restaurant, items, tableNumber } = ctx.request.body.data;
       // Create new order
       const newOrder = await strapi.db.query("api::order.order").create({
         data: {
           restaurant: parseInt(restaurant),
+          tableNumber: parseInt(tableNumber),
           customer: userId,
           totalAmount: 0,
           totalQuantity: 0,
@@ -56,7 +57,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     console.log(ctx.req.decodedToken);
     console.log(ctx.req.me);
     // Get request body parameters
-    const { restaurant, customer } = ctx.request.body.data;
+    const { restaurant, customer, tableNumber } = ctx.request.body.data;
     // Check if customer is login or not
     if (customer[0] !== ctx.req.me.id) {
       return (ctx.status = 400), (ctx.body = "Customer is not login");
@@ -83,6 +84,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
           totalQuantity: 0,
           status: "Placed",
           restaurant: restaurant,
+          tableNumber: parseInt(tableNumber),
           customer: customer,
         },
       })

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import logo from "./../src/assets/restaurant-logo.png";
+import child from "./../src/assets/child.jpeg";
 
 const NavBar = (props) => {
   const [token, setToken] = useState("");
@@ -66,7 +67,7 @@ const NavBar = (props) => {
   }
 
   return (
-    <div>
+    <div className="sticky top-0 z-10">
       <header className="text-white body-font bg-[#1e293b]">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link
@@ -81,6 +82,12 @@ const NavBar = (props) => {
             </span>
           </Link>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+            <Link
+              href={"/restaurant/" + restaurantId}
+              className="mr-5 hover:text-slate-400 flex"
+            >
+              HOME
+            </Link>
             <Link href="/checkout" className="mr-5 hover:text-slate-400 flex">
               <svg
                 fill="currentColor"
@@ -97,7 +104,6 @@ const NavBar = (props) => {
                 ></path>
                 <circle cx="4" cy="4" r="2" stroke="none"></circle>
               </svg>
-              <div>({cartSize})</div>
             </Link>
           </nav>
           {!token ? (
@@ -127,7 +133,7 @@ const NavBar = (props) => {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="child.jpeg"
+                      src={child.src}
                       alt=""
                     />
                   </Menu.Button>

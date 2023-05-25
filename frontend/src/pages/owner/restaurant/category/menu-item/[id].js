@@ -46,18 +46,6 @@ const MenuItem = () => {
     <>
       <NavBar />
       <div className="container mx-auto px-4">
-        {JSON.stringify(menuItemData)}
-        <section className="text-gray-600 body-font">
-          <div classNameName="container px-5 md:py-24 mx-auto">
-            <div classNameName="flex flex-wrap w-full md:mb-20">
-              <div classNameName="lg:w-1/2 w-full mb-6 lg:mb-0">
-                <h1 classNameName="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-400">
-                  Category List - {menuItemData && menuItemData.attributes.name}
-                </h1>
-              </div>
-            </div>
-          </div>
-        </section>
         <section className="text-gray-600 body-font overflow-hidden">
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -173,12 +161,7 @@ const MenuItem = () => {
                   </span>
                 </div>
                 <p className="leading-relaxed">
-                  Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                  sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                  juiceramps cornhole raw denim forage brooklyn. Everyday carry
-                  +1 seitan poutine tumeric. Gastropub blue bottle austin
-                  listicle pour-over, neutra jean shorts keytar banjo tattooed
-                  umami cardigan.
+                  {JSON.stringify(menuItemData)}
                 </p>
                 <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                   <div className="flex items-center">

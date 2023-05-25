@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import NavBar from "../../../components/NavBar";
 import Footer from "../../../components/Footer";
+import { wrap } from "framer-motion";
 
 const Restaurant = ({ cart, addToCart, removeFromCart }) => {
   const router = useRouter();
@@ -45,14 +46,14 @@ const Restaurant = ({ cart, addToCart, removeFromCart }) => {
       <NavBar />
       <div>
         {/* {JSON.stringify(catData)} */}
-        <section className="text-gray-600 body-font" alignItems="center">
+        <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">
             <Accordion defaultIndex={[0]} allowMultiple>
               {catData &&
                 catData.data.map((item1) => {
                   return (
                     // eslint-disable-next-line react/jsx-key
-                    <AccordionItem>
+                    <AccordionItem key={item1.id}>
                       <h2>
                         <AccordionButton>
                           <Box as="span" flex="1" textAlign="left">
@@ -64,65 +65,63 @@ const Restaurant = ({ cart, addToCart, removeFromCart }) => {
                       <AccordionPanel pb={4}>
                         <Stack spacing="4">
                           {item1.attributes.menu_items.data.map((item2) => (
-                            <Card key="md" size="md" display="flex">
-                              <CardHeader>
-                                <Heading size="md">
-                                  {" "}
-                                  {item2.attributes.name}
-                                </Heading>
-                              </CardHeader>
-                              <Text paddingInline="18px">
-                                {" "}
-                                ₹{item2.attributes.price}{" "}
-                              </Text>
-                              <CardBody
-                                display="flex"
-                                alignItems="center"
-                                sx={{
-                                  "& > button": {
-                                    minW: "36px",
-                                  },
-                                }}
-                              >
-                                <Button
-                                  onClick={() => {
-                                    addToCart(
-                                      item2.attributes.name,
-                                      1,
-                                      item2.attributes.price,
-                                      item2.id
-                                    );
+                            <Card key={item2.id} size="md">
+                              <div className="flex flex-wrap justify-around">
+                                <CardHeader margin="auto">
+                                  <Heading size="md">
+                                    {item2.attributes.name} - ₹
+                                    {item2.attributes.price}
+                                  </Heading>
+                                </CardHeader>
+                                <CardBody
+                                  className="flex justify-end"
+                                  alignItems="center"
+                                  sx={{
+                                    "& > button": {
+                                      minW: "36px",
+                                    },
                                   }}
                                 >
-                                  +
-                                </Button>
-                                {cart.filter((c) => c["menu-item"] == item2.id)
-                                  .length ? (
-                                  cart.map((c) => {
-                                    if (c["menu-item"] == item2.id) {
-                                      return (
-                                        <>
-                                          <Text padding="18px">
-                                            {c.quantity}
-                                          </Text>
-                                        </>
+                                  <Button
+                                    onClick={() => {
+                                      removeFromCart(item2.id);
+                                    }}
+                                  >
+                                    -
+                                  </Button>
+                                  {cart.filter(
+                                    (c) => c["menu-item"] == item2.id
+                                  ).length ? (
+                                    cart.map((c) => {
+                                      if (c["menu-item"] == item2.id) {
+                                        return (
+                                          <>
+                                            <Text padding="18px">
+                                              {c.quantity}
+                                            </Text>
+                                          </>
+                                        );
+                                      }
+                                    })
+                                  ) : (
+                                    <>
+                                      <Text padding="18px">0</Text>
+                                    </>
+                                  )}
+                                  <Button
+                                    onClick={() => {
+                                      addToCart(
+                                        item2.attributes.name,
+                                        1,
+                                        item2.attributes.price,
+                                        item2.id
                                       );
-                                    }
-                                  })
-                                ) : (
-                                  <>
-                                    <Text padding="18px">0</Text>
-                                  </>
-                                )}
-
-                                <Button
-                                  onClick={() => {
-                                    removeFromCart(item2.id);
-                                  }}
-                                >
-                                  -
-                                </Button>
-                              </CardBody>
+                                    }}
+                                  >
+                                    +
+                                  </Button>
+                                </CardBody>
+                              </div>
                             </Card>
                           ))}
                         </Stack>

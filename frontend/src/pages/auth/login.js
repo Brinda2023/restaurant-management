@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 // layout for page
 
@@ -118,7 +117,7 @@ export default function Login() {
                 </Form>
               </div>
             </div>
-            <div className="flex flex-wrap mt-6 relative">
+            {/* <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
                 <a
                   href="#pablo"
@@ -133,7 +132,7 @@ export default function Login() {
                   Create new account
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
