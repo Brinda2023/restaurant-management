@@ -6,6 +6,20 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     try {
       const userId = ctx.req.me.id;
       const { restaurant, items, tableNumber } = ctx.request.body.data;
+      let exception = false;
+      for (let i = 0; i < items.length; i++) {
+        const existedMenuItem = await strapi.entityService.findOne(
+          "api::menu-item.menu-item",
+          items[i]["menu-item"],
+          {}
+        );
+        if (!existedMenuItem) {
+          exception = true;
+        }
+      }
+      if (exception) {
+        return (ctx.status = 400), (ctx.body = "Menu Item not found");
+      }
       // Create new order
       const newOrder = await strapi.db.query("api::order.order").create({
         data: {
@@ -50,4 +64,37 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     }
   },
 
+  //Find order for customer
+  async customFind(ctx) {
+    try {
+      const userId = ctx.req.me.id;
+      console.log(userId);
+
+      const order = await strapi.db.query("api::order.order").findOne({
+        where: { customer: { id: userId } },
+        populate: true,
+      });
+      console.log(order);
+      return order;
+    } catch (error) {
+      return ctx.badRequest(error);
+    }
+  },
+  //Find order for customer
+  async customFindOne(ctx) {
+    try {
+      const userId = ctx.req.me.id;
+      const orderId = ctx.request.params.id;
+      console.log(userId);
+
+      const order = await strapi.db.query("api::order.order").findOne({
+        where: { id: orderId, customer: { id: userId } },
+        populate: true,
+      });
+      console.log(order);
+      return order;
+    } catch (error) {
+      return ctx.badRequest(error);
+    }
+  },
 }));

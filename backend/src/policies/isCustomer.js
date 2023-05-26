@@ -2,6 +2,11 @@ const jwt = require("jsonwebtoken");
 
 module.exports = async (ctx, next) => {
   // Get token from headers
+
+  // if(!ctx.request.body.data.items || !ctx.request.body.data.items.length){
+  //   return (ctx.status = 400), (ctx.body = "Items are not selected!");
+  // }
+  
   console.log(ctx.request.headers.token);
   const token = ctx.request.headers.token;
   if (!token) {

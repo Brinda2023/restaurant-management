@@ -65,11 +65,12 @@ const Index = () => {
   };
   const fetchData = async () => {
     const { data } = await axios(
-      `http://localhost:1337/api/restaurants/${restaurantId}?populate=*`,{
-        method:'GET',
-        headers:{
-          Authorization:"Bearer "+localStorage.getItem('token')
-        }
+      `http://localhost:1337/api/restaurants/${restaurantId}?populate=*`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       }
     );
     setRestData(data.data);

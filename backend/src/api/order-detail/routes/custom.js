@@ -5,7 +5,7 @@ module.exports = {
       path: "/order-details",
       handler: "custom.createOrderDetails",
       config: {
-        policies: ["global::isCustomer", "global::isAuthenticated"],
+        policies: ["global::isCustomer"],
       },
     },
     {
@@ -13,7 +13,7 @@ module.exports = {
       path: "/order-details/:id",
       handler: "custom.deleteOrderDetails",
       config: {
-        policies: ["global::isCustomer", "global::isAuthenticated"],
+        policies: ["global::isCustomer"],
       },
     },
   ],

@@ -8,6 +8,15 @@ module.exports = createCoreController(
       console.log(ctx.request.body.data);
       // Get request body data
       const { quantity, order, menuItem } = ctx.request.body.data;
+
+      // check if order exists or not
+      const existedOrder = await strapi.db.query("api::order.order").findOne({
+        where: { id: order },
+        populate: true,
+      });
+      if (!existedOrder || existedOrder.status === "Complete") {
+        return (ctx.status = 400), (ctx.body = "Order not found");
+      }
       // Check if menu item exists or not
       const existedMenuItem = await strapi.entityService.findOne(
         "api::menu-item.menu-item",
@@ -16,14 +25,6 @@ module.exports = createCoreController(
       );
       if (!existedMenuItem) {
         return (ctx.status = 400), (ctx.body = "Menu Item not found");
-      }
-      // check if order exists or not
-      const existedOrder = await strapi.db.query("api::order.order").findOne({
-        where: { id: order },
-        populate: true,
-      });
-      if (!existedOrder) {
-        return (ctx.status = 400), (ctx.body = "Order not found");
       }
 
       // count total price of current menu item
