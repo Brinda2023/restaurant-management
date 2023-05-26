@@ -2,9 +2,6 @@ const utils = require("@strapi/utils");
 const { PolicyError } = utils.errors;
 
 module.exports = async (policyContext, config, { strapi }) => {
-  if (!policyContext.state.user) {
-    throw new PolicyError("Token error!");
-  }
   let { params, request } = policyContext;
   console.log("params", params);
   console.log("req", request.query);
@@ -27,7 +24,6 @@ module.exports = async (policyContext, config, { strapi }) => {
       case "authenticated":
         return true;
         break;
-
       case "restaurant_owner":
       case "restaurant_worker":
       case "restaurant_manager":
@@ -182,8 +178,36 @@ module.exports = async (policyContext, config, { strapi }) => {
         return true;
         break;
     }
+    return false;
+  }
+  if (
+    (policyContext.state.route.path === "/restaurants" ||
+      policyContext.state.route.path === "/restaurants/:id") &&
+    policyContext.state.route.method === "GET"
+  ) {
+    if (request.query.populate) {
+      request.query.populate = {
+        customers: false,
+        orders: false,
+        users: false,
+        categories: true,
+      };
+    }
+    return true;
+  }
+  if (
+    (policyContext.state.route.path === "/categories" ||
+      policyContext.state.route.path === "/categories/:id") &&
+    policyContext.state.route.method === "GET"
+  ) {
+    if (request.query.populate) {
+      request.query.populate = {
+        restaurant: false,
+        "menu_items": true,
+      };
+    }
     return true;
   }
 
-  return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
+  return true; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
 };

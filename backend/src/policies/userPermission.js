@@ -246,10 +246,32 @@ module.exports = async (policyContext, config, { strapi }) => {
         break;
 
       default:
-        console.log("pass from here");
         return true;
         break;
     }
   }
-  return true;
+  if (
+    policyContext.state.route.path === "/users" &&
+    policyContext.state.route.method === "POST"
+  ) {
+    await fetchRole();
+    if (request.body.role !== customer) {
+      throw new PolicyError("You can not create this!");
+    }
+    return true;
+  }
+  if (
+    (policyContext.state.route.path === "/users" || policyContext.state.route.path === "/users/:id") &&
+    policyContext.state.route.method === "GET"
+  ) {
+    if (request.query.populate) {
+      request.query.populate = {
+        role: false,
+        restaurants: true,
+        orders: false,
+      };
+    }
+    return true;
+  }
+  // return true;
 };

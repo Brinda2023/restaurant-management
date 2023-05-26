@@ -1,6 +1,26 @@
 module.exports = {
   routes: [
     {
+      method: "GET",
+      path: "/menu-items",
+      handler: "menu-item.find",
+      config: {
+        policies: [
+          "global::isAuthenticated",
+        ],
+      },
+    },
+    {
+      method: "GET",
+      path: "/menu-items/:id",
+      handler: "menu-item.findOne",
+      config: {
+        policies: [
+          "global::isAuthenticated",
+        ],
+      },
+    },
+    {
       method: "POST",
       path: "/menu-items",
       handler: "menu-item.create",

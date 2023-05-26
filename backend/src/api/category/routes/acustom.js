@@ -36,5 +36,25 @@ module.exports = {
         ],
       },
     },
+    {
+      method: "GET",
+      path: "/categories/:id",
+      handler: "category.findOne",
+      config: {
+        policies: [
+          "global::isAuthenticated",
+        ],
+      },
+    },
+    {
+      method: "GET",
+      path: "/categories",
+      handler: "category.find",
+      config: {
+        policies: [
+          "global::isAuthenticated",
+        ],
+      },
+    },
   ],
 };
