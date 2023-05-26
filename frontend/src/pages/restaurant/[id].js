@@ -83,16 +83,16 @@ const Restaurant = ({ cart, addToCart, removeFromCart }) => {
                                 >
                                   <Button
                                     onClick={() => {
-                                      removeFromCart(item2.id);
+                                      removeFromCart(item2.id,fetchData);
                                     }}
                                   >
                                     -
                                   </Button>
                                   {cart.filter(
-                                    (c) => c["menu-item"] == item2.id
+                                    (c) => c.menuItem == item2.id
                                   ).length ? (
                                     cart.map((c) => {
-                                      if (c["menu-item"] == item2.id) {
+                                      if (c.menuItem == item2.id) {
                                         return (
                                           <>
                                             <Text padding="18px">
@@ -113,7 +113,8 @@ const Restaurant = ({ cart, addToCart, removeFromCart }) => {
                                         item2.attributes.name,
                                         1,
                                         item2.attributes.price,
-                                        item2.id
+                                        item2.id,
+                                        fetchData
                                       );
                                     }}
                                   >

@@ -79,7 +79,7 @@ const Checkout = ({ cart, clearCart }) => {
                     <li>
                       Product {item.item} with a price of ₹{item.price} |
                       Quantity : {item.quantity} | Menu-Item :{" "}
-                      {item["menu-item"]}
+                      {item.menuItem}
                     </li>
                   );
                 })}

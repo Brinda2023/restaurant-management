@@ -12,39 +12,30 @@ export default function App({ Component, pageProps }) {
       content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"
     />
   </Head>;
-  useEffect(() => {}, []);
 
   const [cart, setCart] = useState([]);
-  const [reloadKey, setReloadKey] = useState(1);
   // Add to Cart
-  const addToCart = (item, qty, price, id) => {
-    let newCart = cart;
-    let added;
-    newCart.forEach((item, index) => {
-      if (item["menu-item"] === id) {
-        newCart[index].quantity++;
-        added = "true";
+  const addToCart = (item, qty, price, id, fetchData) => {
+    cart.forEach((item) => {
+      if (item.menuItem === id) {
+        item.quantity++;
       }
     });
-    if (!added) {
-      newCart.push({ item, price, quantity: qty, ["menu-item"]: id });
+    if (!cart.some((item) => item.menuItem === id)) {
+      cart.push({ item, price, quantity: qty, menuItem: id });
     }
-    setCart(newCart);
-    setReloadKey(Math.random());
+    setCart(cart);
+    fetchData();
   };
-
   // Remove from Cart
-  const removeFromCart = (id) => {
-    let newCart = cart;
-    newCart.forEach((item, index) => {
-      if (item["menu-item"] === id && item.quantity > 1) {
-        newCart[index].quantity--;
-      } else if (item["menu-item"] === id && item.quantity === parseInt(1)) {
-        newCart.splice(index, 1);
+  const removeFromCart = (id, fetchData) => {
+    cart.forEach((item) => {
+      if (item.quantity !== 0) {
+        item.menuItem == id ? item.quantity-- : item;
       }
     });
-    setCart(newCart);
-    setReloadKey(Math.random());
+    setCart(cart);
+    fetchData();
   };
 
   // Clear Cart
@@ -62,7 +53,6 @@ export default function App({ Component, pageProps }) {
             removeFromCart={removeFromCart}
             addToCart={addToCart}
             clearCart={clearCart}
-            key={reloadKey}
             {...pageProps}
           />
         </Layout>
