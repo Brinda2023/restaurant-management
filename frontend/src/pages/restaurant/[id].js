@@ -21,7 +21,6 @@ import {
 } from "@chakra-ui/react";
 import NavBar from "../../../components/NavBar";
 import Footer from "../../../components/Footer";
-import { wrap } from "framer-motion";
 
 const Restaurant = ({ cart, addToCart, removeFromCart }) => {
   const router = useRouter();

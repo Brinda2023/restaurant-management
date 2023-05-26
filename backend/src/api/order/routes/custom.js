@@ -2,14 +2,6 @@ module.exports = {
   routes: [
     {
       method: "POST",
-      path: "/orders",
-      handler: "custom.createOrder",
-      config: {
-        policies: ["global::isCustomer", "global::isAuthenticated"],
-      },
-    },
-    {
-      method: "POST",
       path: "/restaurant/orders",
       handler: "custom.customCreate",
       config: {
@@ -19,7 +11,7 @@ module.exports = {
     {
       method: "GET",
       path: "/orders",
-      handler: "custom.getOrder",
+      handler: "order.find",
       config: {
         policies: ["global::isCustomer", "global::isAuthenticated"],
       },

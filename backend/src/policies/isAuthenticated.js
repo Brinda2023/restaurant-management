@@ -27,53 +27,10 @@ module.exports = async (policyContext, config, { strapi }) => {
       case "authenticated":
         return true;
         break;
-      case "customer":
-        console.log(policyContext.state.route.path);
-        switch (policyContext.state.route.path) {
-          case "/orders":
-          case "/orders/:id":
-            {
-              const user = await fetchUser();
-              if (!user || !user.restaurants) {
-                throw new PolicyError("Data not found for you!");
-              }
-              if (params.id) {
-                if (
-                  (
-                    await strapi.db
-                      .query("api::order.order")
-                      .findMany({
-                        where: {
-                          customer: { id: policyContext.state.user.id },
-                        },
-                        select: ["id"],
-                      })
-                      .then((item) => {
-                        return item.map((item) => item.id);
-                      })
-                  ).includes(parseInt(params.id))
-                ) {
-                  return true;
-                } else {
-                  throw new PolicyError("Data not found!");
-                }
-              } else {
-                request.query.filters = {
-                  ...request.query.filters,
-                  restaurant: { id: user.restaurants[0].id },
-                };
-              }
-            }
-            break;
-          default:
-            return true;
-            break;
-        }
-        break;
 
-      case "admin":
-      case "worker":
-      case "manager":
+      case "restaurant_owner":
+      case "restaurant_worker":
+      case "restaurant_manager":
         {
           console.log(policyContext.state.route.path);
           switch (policyContext.state.route.path) {
@@ -81,7 +38,7 @@ module.exports = async (policyContext, config, { strapi }) => {
             case "/orders/:id":
               {
                 const user = await fetchUser();
-                if (!user || !user.restaurants) {
+                if (!user || !user.restaurant) {
                   throw new PolicyError("Data not found for you!");
                 }
                 if (params.id) {
@@ -91,7 +48,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                         .query("api::order.order")
                         .findMany({
                           where: {
-                            restaurant: { id: user.restaurants[0].id },
+                            restaurant: { id: user.restaurant.id },
                           },
                           select: ["id"],
                         })
@@ -108,7 +65,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                   console.log("here2");
                   request.query.filters = {
                     ...request.query.filters,
-                    restaurant: { id: user.restaurants[0].id },
+                    restaurant: { id: user.restaurant.id },
                   };
                 }
               }
@@ -118,22 +75,20 @@ module.exports = async (policyContext, config, { strapi }) => {
             case "/restaurants/:id":
               {
                 const user = await fetchUser();
-                if (!user || !user.restaurants) {
+                if (!user || !user.restaurant) {
                   throw new PolicyError("Data not found for you!");
                 }
                 console.log(request.query.filters.id);
                 if (
-                  (params.id &&
-                    parseInt(params.id) !== user.restaurants[0].id) ||
+                  (params.id && parseInt(params.id) !== user.restaurant.id) ||
                   (request.query.filters.id &&
-                    parseInt(request.query.filters.id) !==
-                      user.restaurants[0].id)
+                    parseInt(request.query.filters.id) !== user.restaurant.id)
                 ) {
                   throw new PolicyError("Data not found!");
                 } else {
                   request.query.filters = {
                     ...request.query.filters,
-                    id: user.restaurants[0].id,
+                    id: user.restaurant.id,
                   };
                 }
               }
@@ -143,12 +98,12 @@ module.exports = async (policyContext, config, { strapi }) => {
             case "/categories/:id":
               {
                 const user = await fetchUser();
-                if (!user || !user.restaurants) {
+                if (!user || !user.restaurant) {
                   throw new PolicyError("Data not found for you!");
                 }
 
                 if (params.id) {
-                  const rest = await fetchRest(user.restaurants[0].id);
+                  const rest = await fetchRest(user.restaurant.id);
                   const inArray = rest.categories.map((category) => {
                     return { id: category.id };
                   });
@@ -158,7 +113,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                 } else {
                   request.query.filters = {
                     ...request.query.filters,
-                    restaurant: user.restaurants[0].id,
+                    restaurant: user.restaurant.id,
                   };
                 }
                 console.log(request.query);
@@ -169,10 +124,10 @@ module.exports = async (policyContext, config, { strapi }) => {
             case "/menu-items/:id":
               {
                 const user = await fetchUser();
-                if (!user || !user.restaurants) {
+                if (!user || !user.restaurant) {
                   throw new PolicyError("Data not found for you!");
                 }
-                const rest = await fetchRest(user.restaurants[0].id);
+                const rest = await fetchRest(user.restaurant.id);
                 const inArray = rest.categories.map((category) => {
                   return { id: category.id };
                 });
@@ -190,7 +145,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                                   await fetchRest(
                                     (
                                       await fetchUser()
-                                    ).restaurants[0].id
+                                    ).restaurant.id
                                   )
                                 ).categories.map((cat) => cat.id),
                               },

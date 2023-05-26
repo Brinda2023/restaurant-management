@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 // import NavBar from "../../components/NavBar";
 // import Footer from "../../components/Footer";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -12,8 +12,7 @@ export default function App({ Component, pageProps }) {
       content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"
     />
   </Head>;
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const [cart, setCart] = useState([]);
   const [reloadKey, setReloadKey] = useState(1);
@@ -58,14 +57,15 @@ export default function App({ Component, pageProps }) {
       <ChakraProvider>
         {/* <NavBar key={reloadKey} cart={cart} /> */}
         <Layout>
-        <Component
-          cart={cart}
-          removeFromCart={removeFromCart}
-          addToCart={addToCart}
-          clearCart={clearCart}
-          key={reloadKey}
-          {...pageProps}
-        /></Layout>
+          <Component
+            cart={cart}
+            removeFromCart={removeFromCart}
+            addToCart={addToCart}
+            clearCart={clearCart}
+            key={reloadKey}
+            {...pageProps}
+          />
+        </Layout>
         {/* <Footer /> */}
       </ChakraProvider>
     </>
