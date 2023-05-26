@@ -65,6 +65,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                   };
                 }
               }
+              return true;
               break;
 
             case "/restaurants":
@@ -74,13 +75,17 @@ module.exports = async (policyContext, config, { strapi }) => {
                 if (!user || !user.restaurant) {
                   throw new PolicyError("Data not found for you!");
                 }
-                console.log(request.query.filters.id);
-                if (
-                  (params.id && parseInt(params.id) !== user.restaurant.id) ||
-                  (request.query.filters.id &&
-                    parseInt(request.query.filters.id) !== user.restaurant.id)
-                ) {
+                if ((params.id && parseInt(params.id)) !== user.restaurant.id) {
+                  console.log("Here1");
                   throw new PolicyError("Data not found!");
+                } else if (request.query.filters) {
+                  console.log("Here2");
+                  if (
+                    parseInt(request.query.filters.id) !== user.restaurant.id
+                  ) {
+                    console.log("Here3");
+                    throw new PolicyError("Data not found!");
+                  }
                 } else {
                   request.query.filters = {
                     ...request.query.filters,
@@ -88,6 +93,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                   };
                 }
               }
+              return true;
               break;
 
             case "/categories":
@@ -101,9 +107,9 @@ module.exports = async (policyContext, config, { strapi }) => {
                 if (params.id) {
                   const rest = await fetchRest(user.restaurant.id);
                   const inArray = rest.categories.map((category) => {
-                    return { id: category.id };
+                    return category.id.toString();
                   });
-                  if (!params.id.includes(inArray)) {
+                  if (!inArray.includes(params.id)) {
                     throw new PolicyError("Data not found!");
                   }
                 } else {
@@ -114,6 +120,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                 }
                 console.log(request.query);
               }
+              return true;
               break;
 
             case "/menu-items":
@@ -167,6 +174,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                   };
                 }
               }
+              return true;
               break;
             default:
               return true;
@@ -178,7 +186,7 @@ module.exports = async (policyContext, config, { strapi }) => {
         return true;
         break;
     }
-    return false;
+    return true;
   }
   if (
     (policyContext.state.route.path === "/restaurants" ||
@@ -203,7 +211,7 @@ module.exports = async (policyContext, config, { strapi }) => {
     if (request.query.populate) {
       request.query.populate = {
         restaurant: false,
-        "menu_items": true,
+        menu_items: true,
       };
     }
     return true;

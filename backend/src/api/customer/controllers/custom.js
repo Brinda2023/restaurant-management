@@ -1,6 +1,6 @@
 const { createCoreController } = require("@strapi/strapi").factories;
 const accountSid = "ACeb1e6baea4ec1455ece920426e33ad3e"; // Your Account SID from www.twilio.com/console
-const authToken = "09cfbc58acb040f6d821d3a43ce9512c"; // Your Auth Token from www.twilio.com/console
+const authToken = "3a7d87d7b13effdda69c0bcea6cd8c25"; // Your Auth Token from www.twilio.com/console
 const client = require("twilio")(accountSid, authToken);
 
 module.exports = createCoreController(

@@ -32,13 +32,17 @@ const NavBar = (props) => {
     }
   }, [restaurantId]);
   const logout = async () => {
+    console.log("************");
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if (userInfo.identifier) {
       localStorage.removeItem("resId");
       localStorage.removeItem("token");
       localStorage.removeItem("userInfo");
+      router.push("/auth/login")
+      console.log("************");
       return;
     } else {
+      console.log("*************");
       const options = {
         method: "POST",
         url: `http://localhost:1337/api/customers/logout`,
@@ -52,8 +56,11 @@ const NavBar = (props) => {
         .then((response) => {
           console.log(response);
           if (response.status == 200) {
+            console.log("*********");
             localStorage.removeItem("token");
             localStorage.removeItem("userInfo");
+            console.log("*****************");
+            router.push("/restaurant/"+restaurantId)
           }
         })
         .catch((error) => {});
@@ -67,7 +74,7 @@ const NavBar = (props) => {
   }
 
   return (
-    <div className="sticky top-0 z-10">
+    <div className="sticky top-0 z-20">
       <header className="text-white body-font bg-[#1e293b]">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link

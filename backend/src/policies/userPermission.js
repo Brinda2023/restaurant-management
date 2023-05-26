@@ -174,7 +174,7 @@ module.exports = async (policyContext, config, { strapi }) => {
         if (
           request.query.populate &&
           policyContext.state.route.path !== "/users/me"
-        ) {
+          ) {
           request.query.populate = {};
         }
         return true;

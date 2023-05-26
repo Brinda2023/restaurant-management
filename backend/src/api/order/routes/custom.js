@@ -5,7 +5,7 @@ module.exports = {
       path: "/restaurant/orders",
       handler: "custom.customCreate",
       config: {
-        policies: ["global::isCustomer", "global::isAuthenticated"],
+        policies: ["global::isCustomer"],
       },
     },
     {

@@ -36,7 +36,7 @@ const MenuItem = () => {
     const token = localStorage.getItem("token");
     const options = {
       method: "GET",
-      url: `http://localhost:1337/api/users?filters[email]=${userInfo.identifier}&populate=*`,
+      url: `http://localhost:1337/api/users/me?populate=*`,
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "application/json",
@@ -45,8 +45,8 @@ const MenuItem = () => {
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data[0]);
-        setUserData(response.data[0]);
+        console.log(response.data);
+        setUserData(response.data);
       })
       .catch((error) => {
         console.log(error);
