@@ -18,5 +18,13 @@ module.exports = {
         policies: ["global::isCustomer"],
       },
     },
+    {
+      method: "PUT",
+      path: "/customers/:id",
+      handler: "customer.update",
+      config: {
+        policies: ["global::isCustomer","global::isAuthenticated"],
+      },
+    },
   ],
 };

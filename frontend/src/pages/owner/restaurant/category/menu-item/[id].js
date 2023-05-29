@@ -3,8 +3,8 @@ import NavBar from "../../../../../../components/NavBar";
 import Footer from "../../../../../../components/Footer";
 import { useRouter } from "next/router";
 import axios from "axios";
-import Link from "next/link";
 
+// Create Menu Item page
 const MenuItem = () => {
   const router = useRouter();
   const [menuItemData, setMenuItemData] = useState(null);

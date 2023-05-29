@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 
+//Create register page for Retaurant Users and Admin
 export default function Register() {
   const router = useRouter();
   const initialValues = {
@@ -18,6 +19,8 @@ export default function Register() {
     role: 7,
     confirmed: true,
   };
+
+  // Register User
   const handleFormSubmit = async (values) => {
     const options = {
       method: "POST",
@@ -42,6 +45,7 @@ export default function Register() {
         console.log(error);
       });
   };
+  
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues,
     onSubmit: handleFormSubmit,

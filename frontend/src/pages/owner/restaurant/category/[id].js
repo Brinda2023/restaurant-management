@@ -3,7 +3,6 @@ import NavBar from "../../../../../components/NavBar";
 import Footer from "../../../../../components/Footer";
 import { useRouter } from "next/router";
 import axios from "axios";
-import Link from "next/link";
 import edit_icon from "./../../../../assets/edit.svg";
 import delete_icon from "./../../../../assets/delete.svg";
 import create_icon from "./../../../../assets/create.png";
@@ -24,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 let method;
 
+// Create Menu Item CRUD page
 const MenuItem = () => {
   const router = useRouter();
   const [categoryData, setCategoryData] = useState(null);
@@ -31,8 +31,8 @@ const MenuItem = () => {
   const [userData, setUserData] = useState(null);
   const [value, setValue] = useState({});
 
+  // Fetch Current User
   const fetchUser = async () => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const token = localStorage.getItem("token");
     const options = {
       method: "GET",
@@ -51,6 +51,8 @@ const MenuItem = () => {
         console.log(error);
       });
   };
+
+  // Fetch all menu items of clicked category
   const fetchData = async () => {
     const token = localStorage.getItem("token");
 
@@ -76,6 +78,7 @@ const MenuItem = () => {
     }
   };
 
+  // Fetch Data
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if (userInfo.identifier !== "brindad@zignuts.com") {
@@ -91,6 +94,7 @@ const MenuItem = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
 
+  // Create Menu item
   const onCreate = async () => {
     const token = localStorage.getItem("token");
 
@@ -124,6 +128,7 @@ const MenuItem = () => {
     }
   };
 
+  // Update Menu item
   const onUpdate = async (id) => {
     const token = localStorage.getItem("token");
 
@@ -153,6 +158,8 @@ const MenuItem = () => {
     }
   };
 
+
+  // Delete Menu-item
   const onDelete = async (id) => {
     const token = localStorage.getItem("token");
 
@@ -179,6 +186,8 @@ const MenuItem = () => {
     }
   };
 
+
+  // Create Model body
   let modalBody;
 
   if (method === "Create") {
