@@ -59,9 +59,9 @@ module.exports = async (policyContext, config, { strapi }) => {
                 }
                 if (params.id) {
                   if (
-                    await fetchOrder(user.restaurant.id, "restaurant").includes(
-                      parseInt(params.id)
-                    )
+                    (
+                      await fetchOrder(user.restaurant.id, "restaurant")
+                    ).includes(parseInt(params.id))
                   ) {
                     return true;
                   } else {
@@ -133,15 +133,6 @@ module.exports = async (policyContext, config, { strapi }) => {
             case "/menu-items":
             case "/menu-items/:id":
               {
-                const user = await fetchUser();
-                if (!user || !user.restaurant) {
-                  throw new PolicyError("Data not found for you!");
-                }
-                const rest = await fetchRest(user.restaurant.id);
-                const inArray = rest.categories.map((category) => {
-                  return { id: category.id };
-                });
-
                 if (params.id) {
                   if (
                     (
@@ -176,7 +167,11 @@ module.exports = async (policyContext, config, { strapi }) => {
                   request.query.filters = {
                     ...request.query.filters,
                     category: {
-                      $or: inArray,
+                      id: {
+                        $in: (
+                          await fetchRest((await fetchUser()).restaurant.id)
+                        ).categories.map((cat) => cat.id),
+                      },
                     },
                   };
                 }
@@ -265,8 +260,8 @@ module.exports = async (policyContext, config, { strapi }) => {
                 where: {
                   order: {
                     id: {
-                      $in: await fetchCustomer(
-                        request.header.token.id
+                      $in: (
+                        await fetchCustomer(request.header.token.id)
                       ).orders.map((o) => o.id),
                     },
                   },
@@ -287,7 +282,7 @@ module.exports = async (policyContext, config, { strapi }) => {
           ...request.query.filters,
           order: {
             id: {
-              $in: await fetchCustomer(request.header.token.id).orders.map(
+              $in: (await fetchCustomer(request.header.token.id)).orders.map(
                 (o) => o.id
               ),
             },

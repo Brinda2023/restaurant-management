@@ -19,7 +19,7 @@ module.exports = {
     {
       method: "GET",
       path: "/order-details",
-      handler: "custom.find",
+      handler: "order-detail.find",
       config: {
         policies: ["global::isCustomer","global::isAuthenticated"],
       },
@@ -27,7 +27,7 @@ module.exports = {
     {
       method: "GET",
       path: "/order-details/:id",
-      handler: "custom.findOne",
+      handler: "order-detail.findOne",
       config: {
         policies: ["global::isCustomer","global::isAuthenticated"],
       },
