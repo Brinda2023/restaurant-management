@@ -247,9 +247,9 @@ module.exports = async (policyContext, config, { strapi }) => {
   }
 
   if (
-    (policyContext.state.route.path === "/order-details" ||
-      policyContext.state.route.path === "/order-details/:id") &&
-    policyContext.state.route.method === "GET"
+    (policyContext.state.route.path === "/order-details" &&
+      policyContext.state.route.method === "GET") ||
+    policyContext.state.route.path === "/order-details/:id"
   ) {
     if (request.header.token && request.header.token.id) {
       if (params.id) {
@@ -292,6 +292,25 @@ module.exports = async (policyContext, config, { strapi }) => {
             },
           },
         };
+      }
+    } else {
+      return false;
+    }
+    return true;
+  }
+  if (
+    policyContext.state.route.path === "/order-details" &&
+    policyContext.state.route.method === "POST"
+  ) {
+    if (request.header.token && request.header.token.id) {
+      if (
+        (await fetchOrder(request.header.token.id, "customer")).includes(
+          parseInt(request.body.data.order)
+        )
+      ) {
+        return true;
+      } else {
+        throw new PolicyError("Data not found!");
       }
     } else {
       return false;
