@@ -2,8 +2,6 @@ const utils = require("@strapi/utils");
 const { PolicyError } = utils.errors;
 module.exports = async (policyContext, config, { strapi }) => {
   let { params, request } = policyContext;
-  console.log("params", params);
-  console.log("req", request.query);
 
   const fetchUser = async (id) => {
     return await strapi.db
@@ -33,7 +31,6 @@ module.exports = async (policyContext, config, { strapi }) => {
   };
 
   if (policyContext.state.user) {
-    console.log(policyContext.state.user.role.type);
     switch (policyContext.state.user.role.type) {
       case "authenticated":
         if (
@@ -148,7 +145,6 @@ module.exports = async (policyContext, config, { strapi }) => {
               reqRoles.push({ id: role.id });
             }
           });
-          console.log();
           request.query.filters = {
             ...request.query.filters,
             restaurant: { id: user.restaurant.id },

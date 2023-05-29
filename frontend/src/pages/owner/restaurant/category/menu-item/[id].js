@@ -9,7 +9,6 @@ const MenuItem = () => {
   const router = useRouter();
   const [menuItemData, setMenuItemData] = useState(null);
   const menuItemId = router.query.id;
-  console.log(menuItemId);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
@@ -28,7 +27,6 @@ const MenuItem = () => {
         .request(options)
         .then((response) => {
           if (response.status == 200) {
-            console.log(response.data);
             setMenuItemData(response.data.data);
           }
         })
@@ -41,7 +39,6 @@ const MenuItem = () => {
     fetchData();
   }, [menuItemId]);
 
-  console.log(menuItemData);
   return (
     <>
       <NavBar />

@@ -26,6 +26,5 @@ module.exports = async (ctx, next) => {
     ctx.req.me = customer;
     ctx.request.headers.token = customer;
   }
-  console.log("Policy Done!");
   return;
 };

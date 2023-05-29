@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import logo from "./../src/assets/restaurant-logo.png";
 import axios from "axios";
 
-
+// Create Footer
 const Footer = () => {
-  const router = useRouter();
   const [restData, setRestData] = useState(null);
   const [restaurantId, setRestaurantId] = useState(null);
+
   const fetchData = async () => {
     const { data } = await axios.get(
       `http://localhost:1337/api/restaurants/${restaurantId}?populate=*`
     );
     setRestData(data);
   };
+  
   useEffect(() => {
     if (typeof window !== undefined) {
       setRestaurantId(localStorage.getItem("resId"));
@@ -22,6 +22,7 @@ const Footer = () => {
       fetchData();
     }
   }, [restaurantId]);
+  
   return (
     <div className="sticky bottom-0">
       <footer className="text-[#ffffff] body-font bg-[#1e293b]">

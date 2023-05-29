@@ -3,8 +3,6 @@ const { PolicyError } = utils.errors;
 
 module.exports = async (policyContext, config, { strapi }) => {
   let { params, request } = policyContext;
-  console.log("params", params);
-  console.log("req", request.query);
 
   const fetchUser = async () => {
     return await strapi.db
@@ -39,7 +37,6 @@ module.exports = async (policyContext, config, { strapi }) => {
   };
 
   if (policyContext.state.user) {
-    console.log(policyContext.state.user.role.type);
     switch (policyContext.state.user.role.type) {
       case "authenticated":
         return true;
@@ -48,7 +45,6 @@ module.exports = async (policyContext, config, { strapi }) => {
       case "restaurant_worker":
       case "restaurant_manager":
         {
-          console.log(policyContext.state.route.path);
           switch (policyContext.state.route.path) {
             case "/orders":
             case "/orders/:id":
@@ -68,7 +64,6 @@ module.exports = async (policyContext, config, { strapi }) => {
                     throw new PolicyError("Data not found!");
                   }
                 } else {
-                  console.log("here2");
                   request.query.filters = {
                     ...request.query.filters,
                     restaurant: { id: user.restaurant.id },
@@ -132,7 +127,6 @@ module.exports = async (policyContext, config, { strapi }) => {
                     restaurant: user.restaurant.id,
                   };
                 }
-                console.log(request.query);
               }
               return true;
               break;
@@ -177,7 +171,7 @@ module.exports = async (policyContext, config, { strapi }) => {
                       await fetchRest((await fetchUser()).restaurant.id)
                     ).categories
                       .map((cat) => cat.id)
-                      .includes(request.body.data.categoryId)
+                      .includes(parseInt(request.body.data.categoryId))
                   ) {
                     return false;
                   }

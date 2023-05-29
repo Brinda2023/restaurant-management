@@ -10,7 +10,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       for (let i = 0; i < items.length; i++) {
         const existedMenuItem = await strapi.entityService.findOne(
           "api::menu-item.menu-item",
-          items[i]["menu-item"],
+          items[i].menuItem,
           {}
         );
         if (!existedMenuItem) {
@@ -38,13 +38,11 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       items.forEach(async (item) => {
         totalAmount += item.quantity * item.price;
         totalQuantity += item.quantity;
-        console.log(totalAmount);
-        console.log(totalQuantity);
         await strapi.db.query("api::order-detail.order-detail").create({
           data: {
             quantity: item.quantity,
             order: orderId,
-            menu_item: item["menu-item"],
+            menu_item: item.menuItem,
             total: item.quantity * item.price,
             price: item.price,
           },

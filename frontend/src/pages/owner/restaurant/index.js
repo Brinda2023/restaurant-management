@@ -53,7 +53,6 @@ const Index = () => {
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data);
         setUserData(response.data);
         setRestaurantId(response.data.restaurant.id);
         localStorage.setItem("resId", userData && userData.restaurant.id);
@@ -92,11 +91,9 @@ const Index = () => {
 
   const onCreate = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
       if (name === "Category") {
-        console.log(value);
         const options = {
           method: "POST",
           url: `http://localhost:1337/api/categories`,
@@ -124,7 +121,6 @@ const Index = () => {
           });
       }
       if (name === "User") {
-        console.log(value);
         const options = {
           method: "POST",
           url: `http://localhost:1337/api/users`,
@@ -159,9 +155,6 @@ const Index = () => {
 
   const onUpdate = async (id) => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(id);
-    console.log(value);
 
     if (token) {
       if (name === "Category") {
@@ -241,7 +234,6 @@ const Index = () => {
 
   const onDelete = async (id) => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
       if (name === "Category") {
@@ -373,7 +365,6 @@ const Index = () => {
                     );
                   }
                 } else if (userData && userData.role.type === "authenticated") {
-                  console.log(userData && userData.role.type);
                   if (r.type !== userData.role.type && r.type !== "public") {
                     return (
                       <option value={r.id} key={r.id}>
@@ -423,7 +414,6 @@ const Index = () => {
                     );
                   }
                 } else if (userData && userData.role.type === "authenticated") {
-                  console.log(userData && userData.role.type);
                   if (r.type !== userData.role.type && r.type !== "public") {
                     return (
                       <option value={r.id} key={r.id}>
@@ -463,8 +453,6 @@ const Index = () => {
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data.roles);
-        console.log(userData);
         setRole(response.data.roles);
       })
       .catch((error) => {
@@ -490,7 +478,6 @@ const Index = () => {
       </Button>
     );
   });
-  console.log(userData && userData);
   return (
     <>
       <NavBar />

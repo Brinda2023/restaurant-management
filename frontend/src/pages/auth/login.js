@@ -8,12 +8,15 @@ import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 
+//Create login page for Retaurant Users and Admin
 export default function Login() {
   const router = useRouter();
   const initialValues = {
     identifier: "",
     password: "",
   };
+ 
+  
   const handleFormSubmit = async (values) => {
     localStorage.setItem("userInfo", JSON.stringify(values));
     await axios
@@ -24,12 +27,9 @@ export default function Login() {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.jwt);
           const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-          console.log("+===============");
-          console.log(userInfo);
           if (userInfo.identifier === "brindad@zignuts.com") {
             router.push("/owner");
           } else {
-            console.log("-0===============");
             router.push("/owner/restaurant");
           }
         }

@@ -14,11 +14,8 @@ const Profile = () => {
       const { data } = await axios.get(
         `http://localhost:1337/api/users?populate=*&filters[email]=${userInfo.identifier}`
       );
-      console.log("==================");
-      console.log(data[0]);
       setUserData(data[0]);
     } else {
-      console.log("==================");
       const { data } = await axios.get(
         `http://localhost:1337/api/customers?populate=*&filters[token]=${token}`
       );

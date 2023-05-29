@@ -45,7 +45,6 @@ const MenuItem = () => {
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data);
         setUserData(response.data);
       })
       .catch((error) => {
@@ -54,7 +53,6 @@ const MenuItem = () => {
   };
   const fetchData = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token && categoryId) {
       const options = {
@@ -69,7 +67,6 @@ const MenuItem = () => {
         .request(options)
         .then((response) => {
           if (response.status == 200) {
-            console.log(response.data);
             setCategoryData(response.data.data);
           }
         })
@@ -96,11 +93,8 @@ const MenuItem = () => {
 
   const onCreate = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(categoryId);
 
     if (token) {
-      console.log(value);
       const options = {
         method: "POST",
         url: `http://localhost:1337/api/menu-items`,
@@ -132,9 +126,6 @@ const MenuItem = () => {
 
   const onUpdate = async (id) => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(id);
-    console.log(value);
 
     if (token) {
       const options = {
@@ -164,7 +155,6 @@ const MenuItem = () => {
 
   const onDelete = async (id) => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
       const options = {

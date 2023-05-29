@@ -30,7 +30,6 @@ const Index = () => {
 
   const fetchData = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
       const options = {
@@ -68,10 +67,8 @@ const Index = () => {
 
   const onCreate = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
-      console.log(value);
       const options = {
         method: "POST",
         url: `http://localhost:1337/api/restaurants`,
@@ -109,9 +106,6 @@ const Index = () => {
 
   const onUpdate = async (id) => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log(id);
-    console.log(value);
 
     if (token) {
       const options = {
@@ -151,7 +145,6 @@ const Index = () => {
 
   const onDelete = async (id) => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
       const options = {

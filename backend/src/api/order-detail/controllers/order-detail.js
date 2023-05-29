@@ -11,7 +11,6 @@ module.exports = createCoreController(
   ({ strapi }) => ({
     // Create order details
     async create(ctx) {
-      console.log(ctx.request.body.data);
       // Get request body data
       const { quantity, order, menuItem } = ctx.request.body.data;
 
@@ -77,7 +76,6 @@ module.exports = createCoreController(
           return ctx.send(res);
         })
         .catch((error) => {
-          console.log(error);
           return (ctx.status = 400);
         });
 
@@ -96,7 +94,6 @@ module.exports = createCoreController(
     async delete(ctx) {
       // Get request body data
       const id = ctx.request.params.id;
-      console.log(id);
       // Check if order detail exists or not
       const existedOrderDetail = await strapi.db
         .query("api::order-detail.order-detail")
@@ -104,7 +101,6 @@ module.exports = createCoreController(
       if (!existedOrderDetail) {
         return (ctx.status = 400), (ctx.body = "Order Detail not found");
       }
-      console.log(existedOrderDetail);
       await strapi.db.query("api::order.order").update({
         where: { id: existedOrderDetail.order.id },
         data: {
@@ -126,7 +122,6 @@ module.exports = createCoreController(
           return ctx.send(res);
         })
         .catch((error) => {
-          console.log(error);
           return (ctx.status = 400);
         });
       return deletedOrderDetail;
@@ -136,7 +131,6 @@ module.exports = createCoreController(
     async update(ctx) {
       // Get request body data
       const id = ctx.request.params.id;
-      console.log(id);
       // Get request body data
       const { quantity } = ctx.request.body.data;
 
@@ -147,7 +141,6 @@ module.exports = createCoreController(
       if (!existedOrderDetail) {
         return (ctx.status = 400), (ctx.body = "Order Detail not found");
       }
-      console.log(existedOrderDetail);
       // Update order
       const updatedOrderDetail = await strapi.db
         .query("api::order-detail.order-detail")
@@ -158,12 +151,8 @@ module.exports = createCoreController(
             total: quantity * existedOrderDetail.price,
           },
         });
-      console.log(updatedOrderDetail);
 
       // Update order-detail
-      console.log(existedOrderDetail.order.totalAmount);
-      console.log(existedOrderDetail.total);
-      console.log(updatedOrderDetail.total);
       const updatedOrder = await strapi.db.query("api::order.order").update({
         where: { id: existedOrderDetail.order.id },
         data: {
@@ -177,7 +166,6 @@ module.exports = createCoreController(
             updatedOrderDetail.total,
         },
       });
-      console.log(updatedOrder);
       return updatedOrderDetail;
     },
   })

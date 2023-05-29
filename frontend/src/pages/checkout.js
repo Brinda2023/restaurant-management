@@ -11,7 +11,7 @@ const Checkout = ({ cart, clearCart }) => {
   useEffect(() => {
     let myTotal = 0;
     for (let index = 0; index < cart.length; index++) {
-      myTotal = myTotal + cart[index].price;
+      myTotal = myTotal + (cart[index].price * cart[index].quantity);
     }
     setSubtotal(myTotal);
   }, []);

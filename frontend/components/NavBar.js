@@ -7,6 +7,8 @@ import classNames from "classnames";
 import logo from "./../src/assets/restaurant-logo.png";
 import child from "./../src/assets/child.jpeg";
 
+
+// Create  NavBar
 const NavBar = (props) => {
   const [token, setToken] = useState("");
   const [restaurantId, setRestaurantId] = useState(null);
@@ -26,23 +28,24 @@ const NavBar = (props) => {
     );
     setRestData(data);
   };
+
   useEffect(() => {
     if (restaurantId) {
       fetchData();
     }
   }, [restaurantId]);
+
+  // Logout current user/customer
   const logout = async () => {
-    console.log("************");
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    // if user is logged in the remove its data from local storage else logout customer
     if (userInfo.identifier) {
       localStorage.removeItem("resId");
       localStorage.removeItem("token");
       localStorage.removeItem("userInfo");
-      router.push("/auth/login")
-      console.log("************");
+      router.push("/auth/login");
       return;
     } else {
-      console.log("*************");
       const options = {
         method: "POST",
         url: `http://localhost:1337/api/customers/logout`,
@@ -54,19 +57,19 @@ const NavBar = (props) => {
       axios
         .request(options)
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
-            console.log("*********");
             localStorage.removeItem("token");
             localStorage.removeItem("userInfo");
-            console.log("*****************");
-            router.push("/restaurant/"+restaurantId)
+            router.push("/restaurant/" + restaurantId);
           }
         })
-        .catch((error) => {});
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
-  let cartSize = 0;
+
+  // update cart-size
   if (props.cart) {
     props.cart.map((item) => {
       cartSize += item.quantity;

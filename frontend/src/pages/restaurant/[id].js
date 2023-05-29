@@ -25,7 +25,6 @@ import Footer from "../../../components/Footer";
 const Restaurant = ({ cart, addToCart, removeFromCart }) => {
   const router = useRouter();
   restaurantId = router.query.id;
-  console.log(restaurantId);
   const [catData, setCatData] = useState();
   const fetchData = async () => {
     const { data } = await axios.get(

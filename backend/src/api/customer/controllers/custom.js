@@ -8,7 +8,6 @@ module.exports = createCoreController(
   ({ strapi }) => ({
     // Login customer using otp
     async loginCustomer(ctx) {
-      console.log(ctx.request.body.data);
       // Get request body data
       const { phone, email } = ctx.request.body.data;
       // check if customer exists or not
@@ -23,7 +22,6 @@ module.exports = createCoreController(
           message: "Customer is not registered!",
         });
       }
-      console.log(existedCustomer);
       //generate otp
       existedCustomer.otp = Math.floor(100000 + Math.random() * 900000);
       // Update customer otp
@@ -33,7 +31,6 @@ module.exports = createCoreController(
           otp: existedCustomer.otp,
         },
       });
-      console.log(existedCustomer);
       // Send email with nodemailer
       await strapi.plugins["email"].services.email.send({
         to: email,
@@ -57,7 +54,6 @@ module.exports = createCoreController(
 
     // Verify customer otp
     async verifyOtp(ctx) {
-      console.log(ctx.request.body.data);
       // Get request body data
       const { email, otp } = ctx.request.body.data;
       // check if customer exists or not
@@ -66,7 +62,6 @@ module.exports = createCoreController(
         .findOne({
           where: { email },
         });
-      console.log(existedCustomer);
       if (!existedCustomer) {
         return (ctx.status = 400), (ctx.body = "Customer is not registered!");
       }
