@@ -24,7 +24,7 @@ module.exports = createCoreController(
         return (ctx.status = 400), (ctx.body = "Order not found");
       }
       // Check if menu item exists or not
-      const existedMenuItem = (
+      let existedMenuItem = (
         await strapi.db
           .query("api::menu-item.menu-item")
           .findMany({
@@ -51,6 +51,13 @@ module.exports = createCoreController(
       if (!existedMenuItem) {
         return (ctx.status = 400), (ctx.body = "Menu Item not found");
       }
+
+      existedMenuItem = await strapi.db
+        .query("api::menu-item.menu-item")
+        .findOne({
+          where: { id: menuItem },
+          populate: true,
+        });
 
       // count total price of current menu item
       const total = existedMenuItem.price * quantity;
@@ -123,6 +130,55 @@ module.exports = createCoreController(
           return (ctx.status = 400);
         });
       return deletedOrderDetail;
+    },
+
+    // Update an order detail from order
+    async update(ctx) {
+      // Get request body data
+      const id = ctx.request.params.id;
+      console.log(id);
+      // Get request body data
+      const { quantity } = ctx.request.body.data;
+
+      // Check if order detail exists or not
+      const existedOrderDetail = await strapi.db
+        .query("api::order-detail.order-detail")
+        .findOne({ where: { id: id }, populate: true });
+      if (!existedOrderDetail) {
+        return (ctx.status = 400), (ctx.body = "Order Detail not found");
+      }
+      console.log(existedOrderDetail);
+      // Update order
+      const updatedOrderDetail = await strapi.db
+        .query("api::order-detail.order-detail")
+        .update({
+          where: { id: id },
+          data: {
+            quantity,
+            total: quantity * existedOrderDetail.price,
+          },
+        });
+      console.log(updatedOrderDetail);
+
+      // Update order-detail
+      console.log(existedOrderDetail.order.totalAmount);
+      console.log(existedOrderDetail.total);
+      console.log(updatedOrderDetail.total);
+      const updatedOrder = await strapi.db.query("api::order.order").update({
+        where: { id: existedOrderDetail.order.id },
+        data: {
+          totalQuantity:
+            existedOrderDetail.order.totalQuantity -
+            existedOrderDetail.quantity +
+            quantity,
+          totalAmount:
+            existedOrderDetail.order.totalAmount -
+            existedOrderDetail.total +
+            updatedOrderDetail.total,
+        },
+      });
+      console.log(updatedOrder);
+      return updatedOrderDetail;
     },
   })
 );

@@ -279,9 +279,6 @@ module.exports = async (policyContext, config, { strapi }) => {
           throw new PolicyError("Data not found!");
         }
       } else {
-        console.log(
-          (await fetchCustomer(request.header.token.id)).orders.map((o) => o.id)
-        );
         request.query.filters = {
           ...request.query.filters,
           order: {
