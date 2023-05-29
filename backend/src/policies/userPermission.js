@@ -43,23 +43,17 @@ module.exports = async (policyContext, config, { strapi }) => {
             policyContext.state.route.method === "GET")
         ) {
           await fetchRole();
+
           if (
             request.body.role !== owner &&
             request.body.role !== manager &&
             request.body.role !== worker
           ) {
-            if (
-              request.body.role !== owner &&
-              request.body.role !== manager &&
-              request.body.role !== worker
-            ) {
-              if (policyContext.state.route.method === "GET") {
-                if (request.query.populate) {
-                  request.query.populate = {};
-                }
-                return true;
+            if (policyContext.state.route.method === "GET") {
+              if (request.query.populate) {
+                request.query.populate = {};
               }
-              return false;
+              return true;
             }
             return false;
           }
@@ -110,12 +104,7 @@ module.exports = async (policyContext, config, { strapi }) => {
         ) {
           const user = await fetchUser(params.id);
           const self = await fetchUser(policyContext.state.user.id);
-          if (
-            !user ||
-            !user.restaurant ||
-            !self ||
-            !self.restaurant
-          ) {
+          if (!user || !user.restaurant || !self || !self.restaurant) {
             throw new PolicyError("Data not found for you!");
           }
           if (
@@ -174,7 +163,7 @@ module.exports = async (policyContext, config, { strapi }) => {
         if (
           request.query.populate &&
           policyContext.state.route.path !== "/users/me"
-          ) {
+        ) {
           request.query.populate = {};
         }
         return true;
@@ -188,12 +177,7 @@ module.exports = async (policyContext, config, { strapi }) => {
         ) {
           const user = await fetchUser(params.id);
           const self = await fetchUser(policyContext.state.user.id);
-          if (
-            !user ||
-            !user.restaurant ||
-            !self ||
-            !self.restaurant
-          ) {
+          if (!user || !user.restaurant || !self || !self.restaurant) {
             throw new PolicyError("Data not found for you!");
           }
           if (
@@ -261,7 +245,8 @@ module.exports = async (policyContext, config, { strapi }) => {
     return true;
   }
   if (
-    (policyContext.state.route.path === "/users" || policyContext.state.route.path === "/users/:id") &&
+    (policyContext.state.route.path === "/users" ||
+      policyContext.state.route.path === "/users/:id") &&
     policyContext.state.route.method === "GET"
   ) {
     if (request.query.populate) {

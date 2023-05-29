@@ -120,6 +120,13 @@ module.exports = async (policyContext, config, { strapi }) => {
                     throw new PolicyError("Data not found!");
                   }
                 } else {
+                  if (
+                    policyContext.state.route.method === "POST" &&
+                    parseInt(request.body.data.restaurant) !==
+                      user.restaurant.id
+                  ) {
+                    return false;
+                  }
                   request.query.filters = {
                     ...request.query.filters,
                     restaurant: user.restaurant.id,
@@ -164,6 +171,16 @@ module.exports = async (policyContext, config, { strapi }) => {
                     throw new PolicyError("Data not found!");
                   }
                 } else {
+                  if (
+                    policyContext.state.route.method === "POST" &&
+                    !(
+                      await fetchRest((await fetchUser()).restaurant.id)
+                    ).categories
+                      .map((cat) => cat.id)
+                      .includes(request.body.data.categoryId)
+                  ) {
+                    return false;
+                  }
                   request.query.filters = {
                     ...request.query.filters,
                     category: {
