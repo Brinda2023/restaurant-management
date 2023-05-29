@@ -3,17 +3,17 @@ module.exports = {
     {
       method: "POST",
       path: "/order-details",
-      handler: "custom.createOrderDetails",
+      handler: "order-detail.create",
       config: {
-        policies: ["global::isCustomer"],
+        policies: ["global::isCustomer","global::isAuthenticated"],
       },
     },
     {
       method: "DELETE",
       path: "/order-details/:id",
-      handler: "custom.deleteOrderDetails",
+      handler: "order-detail.delete",
       config: {
-        policies: ["global::isCustomer"],
+        policies: ["global::isCustomer","global::isAuthenticated"],
       },
     },
     {

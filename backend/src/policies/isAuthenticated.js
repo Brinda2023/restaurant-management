@@ -226,7 +226,7 @@ module.exports = async (policyContext, config, { strapi }) => {
     if (request.header.token && request.header.token.id) {
       if (params.id) {
         if (
-          await fetchOrder(request.header.token.id, "customer").includes(
+          (await fetchOrder(request.header.token.id, "customer")).includes(
             parseInt(params.id)
           )
         ) {
@@ -247,8 +247,9 @@ module.exports = async (policyContext, config, { strapi }) => {
   }
 
   if (
-    policyContext.state.route.path === "/order-details" ||
-    policyContext.state.route.path === "/order-details/:id"
+    (policyContext.state.route.path === "/order-details" ||
+      policyContext.state.route.path === "/order-details/:id") &&
+    policyContext.state.route.method === "GET"
   ) {
     if (request.header.token && request.header.token.id) {
       if (params.id) {
@@ -278,6 +279,9 @@ module.exports = async (policyContext, config, { strapi }) => {
           throw new PolicyError("Data not found!");
         }
       } else {
+        console.log(
+          (await fetchCustomer(request.header.token.id)).orders.map((o) => o.id)
+        );
         request.query.filters = {
           ...request.query.filters,
           order: {

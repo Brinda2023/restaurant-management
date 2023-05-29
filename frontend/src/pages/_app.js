@@ -29,9 +29,11 @@ export default function App({ Component, pageProps }) {
   };
   // Remove from Cart
   const removeFromCart = (id, fetchData) => {
-    cart.forEach((item) => {
-      if (item.quantity !== 0) {
-        item.menuItem == id ? item.quantity-- : item;
+    cart.forEach((item, index) => {
+      if (item.menuItem === id && item.quantity > 1) {
+        cart[index].quantity--;
+      } else if (item.menuItem === id && item.quantity === parseInt(1)) {
+        cart.splice(index, 1);
       }
     });
     setCart(cart);

@@ -38,7 +38,7 @@ const Checkout = ({ cart, clearCart }) => {
           data: {
             restaurant,
             items: cartData,
-            tableNumber:0
+            tableNumber: 0,
           },
         },
       };
@@ -78,8 +78,7 @@ const Checkout = ({ cart, clearCart }) => {
                     // eslint-disable-next-line react/jsx-key
                     <li>
                       Product {item.item} with a price of ₹{item.price} |
-                      Quantity : {item.quantity} | Menu-Item :{" "}
-                      {item.menuItem}
+                      Quantity : {item.quantity} | Menu-Item : {item.menuItem}
                     </li>
                   );
                 })}
