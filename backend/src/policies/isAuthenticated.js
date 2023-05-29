@@ -325,6 +325,25 @@ module.exports = async (policyContext, config, { strapi }) => {
     }
     return true;
   }
+  if (
+    (policyContext.state.route.path === "/customers" &&
+      policyContext.state.route.method === "GET") ||
+    policyContext.state.route.path === "/customers/:id"
+  ) {
+    if (request.header.token && request.header.token.id) {
+      if (params.id !== request.header.token.id) {
+        return false;
+      } else {
+        if (request.query.populate) {
+          request.query.populate = {};
+        }
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return true;
+  }
 
   return true; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
 };

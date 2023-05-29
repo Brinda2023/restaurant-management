@@ -1,4 +1,5 @@
 module.exports = {
+  //add polices for restricted Accessibility. in all the default and custom routers.
   routes: [
     {
       method: "POST",
