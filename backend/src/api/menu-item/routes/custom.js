@@ -26,8 +26,6 @@ module.exports = {
       handler: "menu-item.create",
       config: {
         policies: [
-          "global::isUser",
-          "global::isMenu-item",
           "global::isAuthenticated",
         ],
       },
@@ -38,8 +36,6 @@ module.exports = {
       handler: "menu-item.update",
       config: {
         policies: [
-          "global::isUser",
-          "global::isMenu-item",
           "global::isAuthenticated",
         ],
       },
@@ -50,8 +46,6 @@ module.exports = {
       handler: "menu-item.delete",
       config: {
         policies: [
-          "global::isUser",
-          "global::isMenu-item",
           "global::isAuthenticated",
         ],
       },

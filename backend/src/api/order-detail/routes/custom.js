@@ -16,5 +16,21 @@ module.exports = {
         policies: ["global::isCustomer"],
       },
     },
+    {
+      method: "GET",
+      path: "/order-details",
+      handler: "custom.find",
+      config: {
+        policies: ["global::isCustomer","global::isAuthenticated"],
+      },
+    },
+    {
+      method: "GET",
+      path: "/order-details/:id",
+      handler: "custom.findOne",
+      config: {
+        policies: ["global::isCustomer","global::isAuthenticated"],
+      },
+    },
   ],
 };

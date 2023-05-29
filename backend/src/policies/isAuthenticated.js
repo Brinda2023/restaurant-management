@@ -18,6 +18,26 @@ module.exports = async (policyContext, config, { strapi }) => {
       .findOne({ where: { id }, populate: true });
   };
 
+  const fetchOrder = async (id, param) => {
+    return await strapi.db
+      .query("api::order.order")
+      .findMany({
+        where: {
+          [param]: { id },
+        },
+        select: ["id"],
+      })
+      .then((item) => {
+        return item.map((item) => item.id);
+      });
+  };
+
+  const fetchCustomer = async (id) => {
+    return await strapi.db
+      .query("api::customer.customer")
+      .findOne({ where: { id }, populate: { orders: true } });
+  };
+
   if (policyContext.state.user) {
     console.log(policyContext.state.user.role.type);
     switch (policyContext.state.user.role.type) {
@@ -39,19 +59,9 @@ module.exports = async (policyContext, config, { strapi }) => {
                 }
                 if (params.id) {
                   if (
-                    (
-                      await strapi.db
-                        .query("api::order.order")
-                        .findMany({
-                          where: {
-                            restaurant: { id: user.restaurant.id },
-                          },
-                          select: ["id"],
-                        })
-                        .then((item) => {
-                          return item.map((item) => item.id);
-                        })
-                    ).includes(parseInt(params.id))
+                    await fetchOrder(user.restaurant.id, "restaurant").includes(
+                      parseInt(params.id)
+                    )
                   ) {
                     return true;
                   } else {
@@ -76,14 +86,11 @@ module.exports = async (policyContext, config, { strapi }) => {
                   throw new PolicyError("Data not found for you!");
                 }
                 if ((params.id && parseInt(params.id)) !== user.restaurant.id) {
-                  console.log("Here1");
                   throw new PolicyError("Data not found!");
                 } else if (request.query.filters) {
-                  console.log("Here2");
                   if (
                     parseInt(request.query.filters.id) !== user.restaurant.id
                   ) {
-                    console.log("Here3");
                     throw new PolicyError("Data not found!");
                   }
                 } else {
@@ -213,6 +220,82 @@ module.exports = async (policyContext, config, { strapi }) => {
         restaurant: false,
         menu_items: true,
       };
+    }
+    return true;
+  }
+  if (
+    (policyContext.state.route.path === "/orders" &&
+      policyContext.state.route.method === "GET") ||
+    policyContext.state.route.path === "/orders/:id"
+  ) {
+    if (request.header.token && request.header.token.id) {
+      if (params.id) {
+        if (
+          await fetchOrder(request.header.token.id, "customer").includes(
+            parseInt(params.id)
+          )
+        ) {
+          return true;
+        } else {
+          throw new PolicyError("Data not found!");
+        }
+      } else {
+        request.query.filters = {
+          ...request.query.filters,
+          customer: { id: request.header.token.id },
+        };
+      }
+    } else {
+      return false;
+    }
+    return true;
+  }
+
+  if (
+    policyContext.state.route.path === "/order-details" ||
+    policyContext.state.route.path === "/order-details/:id"
+  ) {
+    if (request.header.token && request.header.token.id) {
+      if (params.id) {
+        if (
+          (
+            await strapi.db
+              .query("api::order-detail.order-detail")
+              .findMany({
+                where: {
+                  order: {
+                    id: {
+                      $in: await fetchCustomer(
+                        request.header.token.id
+                      ).orders.map((o) => o.id),
+                    },
+                  },
+                },
+                select: ["id"],
+              })
+              .then((orderDetails) => {
+                return orderDetails.map((od) => od.id);
+              })
+          ).includes(parseInt(params.id))
+        ) {
+          return true;
+        } else {
+          throw new PolicyError("Data not found!");
+        }
+      } else {
+        request.query.filters = {
+          ...request.query.filters,
+          order: {
+            id: {
+              $in: await fetchCustomer(request.header.token.id).orders.map(
+                (o) => o.id
+              ),
+            },
+          },
+        };
+      }
+    } else {
+      return false;
     }
     return true;
   }

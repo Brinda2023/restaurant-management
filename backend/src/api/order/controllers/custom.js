@@ -63,38 +63,4 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
       return ctx.badRequest(error);
     }
   },
-
-  //Find order for customer
-  async customFind(ctx) {
-    try {
-      const userId = ctx.req.me.id;
-      console.log(userId);
-
-      const order = await strapi.db.query("api::order.order").findOne({
-        where: { customer: { id: userId } },
-        populate: true,
-      });
-      console.log(order);
-      return order;
-    } catch (error) {
-      return ctx.badRequest(error);
-    }
-  },
-  //Find order for customer
-  async customFindOne(ctx) {
-    try {
-      const userId = ctx.req.me.id;
-      const orderId = ctx.request.params.id;
-      console.log(userId);
-
-      const order = await strapi.db.query("api::order.order").findOne({
-        where: { id: orderId, customer: { id: userId } },
-        populate: true,
-      });
-      console.log(order);
-      return order;
-    } catch (error) {
-      return ctx.badRequest(error);
-    }
-  },
 }));

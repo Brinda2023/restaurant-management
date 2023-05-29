@@ -26,8 +26,6 @@ module.exports = {
       handler: "restaurant.create",
       config: {
         policies: [
-          "global::isUser",
-          "global::isRestaurant",
           "global::isAuthenticated",
         ],
       },
@@ -38,8 +36,6 @@ module.exports = {
       handler: "restaurant.update",
       config: {
         policies: [
-          "global::isUser",
-          "global::isRestaurant",
           "global::isAuthenticated",
         ],
       },
@@ -50,8 +46,6 @@ module.exports = {
       handler: "restaurant.delete",
       config: {
         policies: [
-          "global::isUser",
-          "global::isRestaurant",
           "global::isAuthenticated",
         ],
       },

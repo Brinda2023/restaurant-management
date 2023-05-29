@@ -6,8 +6,6 @@ module.exports = {
       handler: "category.create",
       config: {
         policies: [
-          "global::isUser",
-          "global::isCategory",
           "global::isAuthenticated",
         ],
       },
@@ -18,8 +16,6 @@ module.exports = {
       handler: "category.update",
       config: {
         policies: [
-          "global::isUser",
-          "global::isCategory",
           "global::isAuthenticated",
         ],
       },
@@ -30,8 +26,6 @@ module.exports = {
       handler: "category.delete",
       config: {
         policies: [
-          "global::isUser",
-          "global::isCategory",
           "global::isAuthenticated",
         ],
       },

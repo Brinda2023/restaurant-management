@@ -13,15 +13,7 @@ module.exports = {
       path: "/orders",
       handler: "order.find",
       config: {
-        policies: ["global::isAuthenticated"],
-      },
-    },
-    {
-      method: "GET",
-      path: "/orders",
-      handler: "custom.customFind",
-      config: {
-        policies: ["global::isCustomer", "global::isOrder"],
+        policies: ["global::isCustomer","global::isAuthenticated"],
       },
     },
     {
@@ -29,15 +21,23 @@ module.exports = {
       path: "/orders/:id",
       handler: "order.findOne",
       config: {
-        policies: ["global::isAuthenticated"],
+        policies: ["global::isCustomer","global::isAuthenticated"],
       },
     },
     {
-      method: "GET",
+      method: "PUT",
       path: "/orders/:id",
-      handler: "custom.customFindOne",
+      handler: "order.update",
       config: {
-        policies: ["global::isCustomer", "global::isOrder"],
+        policies: ["global::isCustomer","global::isAuthenticated"],
+      },
+    },
+    {
+      method: "DELETE",
+      path: "/orders/:id",
+      handler: "order.delete",
+      config: {
+        policies: ["global::isCustomer","global::isAuthenticated"],
       },
     },
   ],
