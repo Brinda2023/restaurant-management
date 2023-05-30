@@ -17,7 +17,8 @@
       "required": true
     },
     "otp": {
-      "type": "integer"
+      "type": "integer",
+      "private": true
     },
     "phone": {
       "type": "biginteger",
@@ -29,7 +30,8 @@
       "unique": true
     },
     "token": {
-      "type": "uid"
+      "type": "uid",
+      "private": true
     },
     "orders": {
       "type": "relation",

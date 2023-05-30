@@ -331,10 +331,10 @@ module.exports = async (policyContext, config, { strapi }) => {
     policyContext.state.route.path === "/customers/:id"
   ) {
     if (request.header.token && request.header.token.id) {
-      if (params.id !== request.header.token.id) {
+      if (params.id && parseInt(params.id) !== request.header.token.id) {
         return false;
       } else {
-        if (request.query.populate) {
+        if (request.query.populate && (parseInt(params.id) !== request.header.token.id)) {
           request.query.populate = {};
         }
         return true;
